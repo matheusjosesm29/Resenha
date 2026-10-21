@@ -1,0 +1,23 @@
+# Ambientes virtuais e arquivos gerados
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+staticfiles/
+
+# Credenciais locais (o exemplo sem credenciais é versionado)
+.env
+.env.*
+!.env.example
+
+# Dados locais
+*.sqlite3
+*.sqlite3-*
+media/
+*.log
+
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
