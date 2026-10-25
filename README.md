@@ -36,10 +36,10 @@ Para validar sem gravar, use `python import_rawg_1999.py --dry-run`. `--count` l
 ## Docker + PostgreSQL
 
 ```bash
-cp .env.example .env
+if [ ! -f .env ]; then cp .env.example .env; fi
 ```
 
-Edite `.env` e substitua os valores de exemplo de `DJANGO_SECRET_KEY` e `POSTGRES_PASSWORD`. Uma chave pode ser gerada com `python -c 'import secrets; print(secrets.token_urlsafe(64))'`.
+Edite `.env` sem substituir valores que já existam e defina `POSTGRES_PASSWORD` (obrigatório pelo Compose); substitua também os valores de exemplo de `DJANGO_SECRET_KEY` e `POSTGRES_PASSWORD` se o arquivo foi criado agora. Para gerar valores seguros, use `python -c 'import secrets; print(secrets.token_urlsafe(64))'`. Preencha `OMDB_API_KEY` e `RAWG_API_KEY` se for importar obras dessas fontes.
 
 ```bash
 docker compose up --build -d
@@ -48,6 +48,8 @@ docker compose exec web python manage.py createsuperuser
 ```
 
 Abra http://127.0.0.1:8000. O volume `postgres_data` mantém o banco após reiniciar os contêineres. `docker compose down` encerra os serviços; não use `down -v` se quiser preservar o banco. A porta do banco não é publicada.
+
+Para atualizar a aplicação após alterações no código ou nos arquivos estáticos, execute novamente `docker compose up --build -d`; a inicialização aplica migrações e coleta os estáticos atualizados. O serviço `web` só fica healthy quando o processo Gunicorn está escutando na porta 8000. O snapshot `rawg_game_titles.json` acompanha a imagem e o importador também pode ser executado dentro do contêiner, por exemplo com `docker compose exec web python import_rawg_1999.py --dry-run`.
 
 ## Funcionalidades
 
