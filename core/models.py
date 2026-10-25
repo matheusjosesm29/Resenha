@@ -14,7 +14,7 @@ class User(AbstractUser):
 
 
 class Work(models.Model):
-    CATEGORIES = [(c, c) for c in ['Filmes', 'Séries', 'Animes', 'Mangás', 'Livros', 'Jogos']]
+    CATEGORIES = [(c, c) for c in ['Filmes', 'Séries', 'Quadrinhos', 'Livros', 'Jogos']]
     title = models.CharField(max_length=150, db_index=True)
     category = models.CharField(max_length=20, choices=CATEGORIES, db_index=True)
     year = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2100)])
@@ -24,6 +24,9 @@ class Work(models.Model):
     color = models.CharField(max_length=7, default='#3a4551')
     poster = models.URLField(blank=True, max_length=1000)
     imdb_id = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    rawg_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
+    isbn = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    ol_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
