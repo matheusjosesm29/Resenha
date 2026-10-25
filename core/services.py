@@ -1,6 +1,51 @@
 import requests
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils.html import strip_tags
+
+
+def is_adult_focused_game(title, synopsis, tags, esrb_rating):
+    """Reject games explicitly labeled as pornographic, not general mature titles."""
+    explicit_tags = {'nsfw', 'hentai', 'eroge', 'erotic', 'porn', 'pornographic'}
+    title_terms = (
+        'porn', 'hentai', 'futanari', 'nymphomania', 'deepthroat',
+        'pregnation', 'adult game', 'erotic game', 'sex simulator',
+    )
+    description_phrases = (
+        'adult-only', 'adult only', 'adult scenes',
+        'adult-oriented content', 'adult oriented content',
+        'sex game', 'hentai', 'eroge', 'pornographic', 'sexually explicit',
+        'explicit sex', 'h-scenes', 'h scenes',
+    )
+
+    normalized_tags = set()
+    if isinstance(tags, list):
+        for tag in tags:
+            if isinstance(tag, str):
+                normalized_tags.add(tag.strip().casefold())
+            elif isinstance(tag, dict):
+                for value in (tag.get('name'), tag.get('slug')):
+                    if isinstance(value, str):
+                        normalized_tags.add(value.strip().casefold().replace('_', '-'))
+    elif isinstance(tags, dict) and isinstance(tags.get('results'), list):
+        return is_adult_focused_game(title, synopsis, tags['results'], esrb_rating)
+
+    if normalized_tags & explicit_tags:
+        return True
+
+    if isinstance(esrb_rating, dict):
+        rating = esrb_rating.get('slug') or esrb_rating.get('name') or ''
+        if isinstance(rating, str) and rating.strip().casefold().replace('_', '-') in {
+            'adults-only', 'adults only', 'ao',
+        }:
+            return True
+
+    normalized_title = title.casefold() if isinstance(title, str) else ''
+    normalized_synopsis = synopsis.casefold() if isinstance(synopsis, str) else ''
+    return (
+        any(term in normalized_title for term in title_terms)
+        or any(phrase in normalized_synopsis for phrase in description_phrases)
+    )
 
 
 def lookup_omdb(title='', imdb_id=''):
@@ -33,35 +78,82 @@ def lookup_omdb(title='', imdb_id=''):
 
 
 def lookup_rawg(title='', rawg_id=''):
-    """Stub: consulta RAWG API para jogos (requer API key)."""
+    """Busca um jogo no RAWG e normaliza seus dados para o catálogo."""
     if not settings.RAWG_API_KEY:
         raise ValidationError('A chave RAWG ainda não foi configurada no servidor.')
-    params = {'key': settings.RAWG_API_KEY, 'search': title}
+
+    if rawg_id:
+        if not isinstance(rawg_id, str) or not rawg_id.isdigit():
+            raise ValidationError('O identificador RAWG é inválido.')
+        detail_url = f'https://api.rawg.io/api/games/{rawg_id}'
+    else:
+        if not isinstance(title, str) or not title.strip():
+            raise ValidationError('Informe o título do jogo para pesquisar no RAWG.')
+        params = {'key': settings.RAWG_API_KEY, 'search': title.strip(), 'page_size': 1}
+        try:
+            response = requests.get('https://api.rawg.io/api/games', params=params, timeout=5)
+            response.raise_for_status()
+            data = response.json()
+        except (requests.RequestException, ValueError):
+            raise ValidationError('Não foi possível consultar o RAWG. Tente novamente mais tarde.') from None
+        if not isinstance(data, dict) or not isinstance(data.get('results'), list) or not data['results']:
+            raise ValidationError('Jogo não encontrado no RAWG.')
+        game = data['results'][0]
+        if not isinstance(game, dict) or not str(game.get('id', '')).isdigit():
+            raise ValidationError('O RAWG retornou um jogo inválido.')
+        detail_url = f"https://api.rawg.io/api/games/{game['id']}"
+
     try:
-        response = requests.get('https://api.rawg.io/api/games', params=params, timeout=5)
+        response = requests.get(detail_url, params={'key': settings.RAWG_API_KEY}, timeout=5)
         response.raise_for_status()
-        data = response.json()
+        details = response.json()
     except (requests.RequestException, ValueError):
         raise ValidationError('Não foi possível consultar o RAWG. Tente novamente mais tarde.') from None
-    results = data.get('results', [])
-    if not results:
+
+    if not isinstance(details, dict) or not details.get('id'):
         raise ValidationError('Jogo não encontrado no RAWG.')
-    game = results[0]
+    game = details
+
     def value(key, default=''):
-        return game.get(key, default) or default
+        result = game.get(key, default)
+        return result if isinstance(result, str) else default
+
     try:
-        year = int(str(value('released', ''))[:4]) if value('released') else 0
-    except ValueError:
-        year = 0
+        year = int(value('released')[:4])
+    except (TypeError, ValueError):
+        raise ValidationError('O RAWG não retornou um ano de lançamento válido.') from None
+    if not 1 <= year <= 2100:
+        raise ValidationError('O RAWG não retornou um ano de lançamento válido.')
+
+    synopsis = value('description_raw').strip() or strip_tags(value('description')).strip()
+    if not synopsis:
+        raise ValidationError('O RAWG não retornou uma descrição para este jogo.')
+
+    developers = game.get('developers', [])
+    developer_names = [
+        item['name'] for item in developers
+        if isinstance(item, dict) and isinstance(item.get('name'), str) and item['name'].strip()
+    ] if isinstance(developers, list) else []
+    tags = game.get('tags', [])
+    tag_names = [
+        item['name'] for item in tags
+        if isinstance(item, dict) and isinstance(item.get('name'), str) and item['name'].strip()
+    ] if isinstance(tags, list) else []
+    title = value('name').strip()
+    if is_adult_focused_game(title, synopsis, tags, game.get('esrb_rating')):
+        raise ValidationError('Jogo recusado: foco em conteúdo adulto explícito.')
+
+    game_id = str(game['id'])
+
     return {
-        'title': value('name', '')[:150],
+        'title': title[:150],
         'category': 'Jogos',
         'year': year,
-        'synopsis': value('description_raw', '')[:3000],
-        'creator': ', '.join([p.get('name', '') for p in value('developers', [])])[:200],
-        'cast': ', '.join([t.get('name', '') for t in value('tags', [])[:5]])[:2000],
+        'synopsis': synopsis[:3000],
+        'creator': ', '.join(developer_names)[:200] or 'Desenvolvedor não informado',
+        'cast': ', '.join(tag_names[:5])[:2000],
         'poster': value('background_image', '')[:1000],
-        'rawg_id': str(game.get('id', ''))[:50],
+        'rawg_id': game_id[:50],
     }
 
 

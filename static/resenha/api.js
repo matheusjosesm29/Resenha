@@ -309,7 +309,7 @@ admin = function () {
         })
         .join("") || '<p class="empty">Nenhuma denúncia pendente.</p>');
   else if (adminTab === "Obras")
-    target.innerHTML = `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork()">Importar do OMDb</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${db.works.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>`;
+    target.innerHTML = `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork('omdb')">Importar do OMDb</button><button onclick="importWork('rawg')">Importar do RAWG</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${db.works.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>`;
   else
     target.innerHTML =
       "<h2>Usuários</h2>" +
@@ -371,18 +371,19 @@ removeWork = function (id) {
     }),
   );
 };
-function importWork() {
+function importWork(source = "omdb") {
+  const provider = source === "rawg" ? "RAWG" : "OMDb";
   modal(
-    '<h2>Importar do OMDb</h2><form id="import-form"><label>Título<input name="title" required maxlength="150"></label><button class="primary full">Buscar e importar</button></form>',
+    `<h2>Importar do ${provider}</h2><form id="import-form"><label>Título<input name="title" required maxlength="150"></label><button class="primary full">Buscar e importar</button></form>`,
   );
   $("#import-form").onsubmit = (e) => {
     e.preventDefault();
     const title = e.target.elements.namedItem("title").value;
     run(async () => {
-      await apiCall("admin/import", "POST", { title });
+      await apiCall("admin/import", "POST", { title, source });
       $("#modal").close();
       await refresh();
-      toast("Obra importada.");
+      toast(`Obra importada via ${provider}.`);
     });
   };
 }

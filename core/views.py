@@ -22,7 +22,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import User, Work, Review, Comment, Like, LibraryEntry, Report
-from .services import lookup_omdb
+from .services import lookup_omdb, lookup_rawg
 
 
 def response(data=None, status=200):
@@ -51,7 +51,7 @@ def serialize_work(w):
     return {'id': w.pk, 'title': w.title, 'category': w.category, 'year': w.year,
             'synopsis': w.synopsis, 'creator': w.creator, 'cast': w.cast, 'poster': w.poster,
             'color': w.color, 'score': float(w.average or 0), 'count': w.review_count,
-            'imdb_id': w.imdb_id}
+            'imdb_id': w.imdb_id, 'rawg_id': w.rawg_id}
 
 
 def works_list(request):
@@ -297,6 +297,16 @@ def dispatch(request, route, data):
             return fail('Limite de consultas atingido. Tente novamente depois.', 429)
         title = text({'title': request.GET.get('title', '')}, 'title', 150)
         return response({'work': lookup_omdb(title=title)})
+    if route == 'rawg' and method == 'GET':
+        if not throttle(request, 'rawg', 20):
+            return fail('Limite de consultas atingido. Tente novamente depois.', 429)
+        rawg_id = request.GET.get('rawg_id', '')
+        if rawg_id:
+            imported = lookup_rawg(rawg_id=rawg_id)
+        else:
+            title = text({'title': request.GET.get('title', '')}, 'title', 150)
+            imported = lookup_rawg(title=title)
+        return response({'work': imported})
     if len(parts) == 2 and parts[0] == 'profiles' and parts[1].isdigit() and method == 'GET':
         target = User.objects.get(pk=parts[1])
         return response({'id': target.pk, 'name': display(target), 'bio': target.bio, 'avatar': target.avatar,
@@ -397,10 +407,15 @@ def dispatch(request, route, data):
         if route == 'admin/works' and method == 'POST':
             return response({'id': change_work(data).pk}, 201)
         if route == 'admin/import' and method == 'POST':
-            imported = lookup_omdb(title=text(data, 'title', 150))
-            if not imported['imdb_id']:
-                raise ValidationError('OMDb não retornou um identificador válido.')
-            instance = Work.objects.filter(imdb_id=imported['imdb_id']).first()
+            source = data.get('source', 'omdb')
+            if source not in ['omdb', 'rawg']:
+                raise ValidationError('Fonte de importação inválida.')
+            title = text(data, 'title', 150)
+            imported = lookup_rawg(title=title) if source == 'rawg' else lookup_omdb(title=title)
+            id_field = 'rawg_id' if source == 'rawg' else 'imdb_id'
+            if not imported[id_field]:
+                raise ValidationError(f'{source.upper()} não retornou um identificador válido.')
+            instance = Work.objects.filter(**{id_field: imported[id_field]}).first()
             if not instance:
                 instance = Work(**imported)
                 instance.full_clean()
