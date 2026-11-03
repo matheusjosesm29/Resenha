@@ -8,6 +8,8 @@ from django.test import Client, TestCase, override_settings
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .models import User, Work, Review, Comment, Like, LibraryEntry, Report
+from .services import is_adult_focused_game
+from import_rawg_1999 import TITLE_LIST, import_games
 
 
 @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
@@ -169,6 +171,214 @@ class ApiTests(TestCase):
         for _ in range(2):
             self.assertEqual(self.send('admin/import', {'title': 'Filme'}).status_code, 200)
         self.assertEqual(Work.objects.filter(imdb_id='tt1234567').count(), 1)
+
+    @override_settings(RAWG_API_KEY='test-key')
+    @patch('core.services.requests.get')
+    def test_rawg_import_persists_game_and_exposes_it_in_catalog(self, get):
+        search_result = {
+            'id': 3498,
+            'name': 'Grand Theft Auto V',
+            'released': '2013-09-17',
+            'background_image': 'https://example.org/game.jpg',
+        }
+        game_details = {
+            **search_result,
+            'description_raw': 'A detailed game description.',
+            'developers': [{'name': 'Rockstar North'}],
+            'tags': [{'name': 'Open World'}, {'name': 'Action'}],
+        }
+        get.side_effect = [
+            Mock(json=lambda: {'results': [search_result]}),
+            Mock(json=lambda: game_details),
+            Mock(json=lambda: {'results': [search_result]}),
+            Mock(json=lambda: game_details),
+        ]
+        self.sign_in(self.staff)
+
+        for _ in range(2):
+            result = self.send('admin/import', {'title': 'Grand Theft Auto V', 'source': 'rawg'})
+            self.assertEqual(result.status_code, 200, result.content)
+
+        game = Work.objects.get(rawg_id='3498')
+        self.assertEqual(Work.objects.filter(rawg_id='3498').count(), 1)
+        self.assertEqual(game.category, 'Jogos')
+        self.assertEqual(game.year, 2013)
+        self.assertEqual(game.synopsis, 'A detailed game description.')
+        self.assertEqual(game.creator, 'Rockstar North')
+        self.assertEqual(game.cast, 'Open World, Action')
+        self.assertEqual(game.poster, 'https://example.org/game.jpg')
+
+        catalog = self.client.get('/api/state').json()['works']
+        serialized = next(work for work in catalog if work['rawg_id'] == '3498')
+        self.assertEqual(serialized['title'], 'Grand Theft Auto V')
+        self.assertEqual(serialized['poster'], game.poster)
+
+    @override_settings(RAWG_API_KEY='test-key')
+    @patch('core.services.requests.get')
+    def test_rawg_lookup_returns_normalized_game_without_persisting(self, get):
+        search_result = {'id': 123, 'name': 'Game', 'released': '2020-01-01'}
+        details = {
+            **search_result,
+            'description': '<p>Game <b>description</b>.</p>',
+            'developers': [],
+            'tags': [],
+        }
+        get.side_effect = [
+            Mock(json=lambda: {'results': [search_result]}),
+            Mock(json=lambda: details),
+        ]
+
+        result = self.client.get('/api/rawg?title=Game')
+
+        self.assertEqual(result.status_code, 200, result.content)
+        self.assertEqual(result.json()['work']['synopsis'], 'Game description.')
+        self.assertEqual(result.json()['work']['category'], 'Jogos')
+        self.assertEqual(Work.objects.filter(rawg_id='123').count(), 0)
+
+    @override_settings(RAWG_API_KEY='test-key')
+    @patch('core.services.requests.get')
+    def test_rawg_rejects_games_without_a_valid_release_year(self, get):
+        result = {'id': 123, 'name': 'Unreleased game'}
+        get.side_effect = [
+            Mock(json=lambda: {'results': [result]}),
+            Mock(json=lambda: result),
+        ]
+        self.sign_in(self.staff)
+
+        response = self.send('admin/import', {'title': 'Unreleased game', 'source': 'rawg'})
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('ano de lançamento válido', response.json()['error'])
+        self.assertFalse(Work.objects.filter(rawg_id='123').exists())
+
+    def test_rawg_filter_rejects_explicit_adult_focused_games(self):
+        self.assertTrue(is_adult_focused_game(
+            'Some RPG', 'Adult-only RPG with adult scenes.', ['Fantasy'], None,
+        ))
+        self.assertTrue(is_adult_focused_game(
+            'Some RPG', 'An adventure game.', [{'name': 'NSFW', 'slug': 'nsfw'}], None,
+        ))
+        self.assertTrue(is_adult_focused_game(
+            'Some RPG', 'An adventure game.', ['Action'], {'name': 'Adults Only'},
+        ))
+
+    def test_rawg_filter_allows_mature_mainstream_games(self):
+        self.assertFalse(is_adult_focused_game(
+            'Cyberpunk 2077',
+            'A role-playing game set in a dark future.',
+            ['Action', 'RPG', 'Nudity', 'Violence'],
+            {'name': 'Mature', 'slug': 'mature'},
+        ))
+        self.assertFalse(is_adult_focused_game(
+            'The Witcher 3: Wild Hunt',
+            'A story-driven open world role-playing game.',
+            ['RPG', 'Nudity', 'Violence'],
+            {'name': 'Mature', 'slug': 'mature'},
+        ))
+        self.assertFalse(is_adult_focused_game(
+            'Red Falls Season 1',
+            'An adult game of survival and warfare in a dark world.',
+            ['RPG', 'Horror', 'Early Access'],
+            {'name': 'Mature', 'slug': 'mature'},
+        ))
+
+    @override_settings(RAWG_API_KEY='test-key')
+    @patch('core.services.requests.get')
+    def test_rawg_api_does_not_import_explicit_adult_focused_games(self, get):
+        game = {
+            'id': 456,
+            'name': 'Explicit RPG',
+            'released': '2020-01-01',
+            'description_raw': 'Adult-only RPG.',
+            'developers': [],
+            'tags': [{'name': 'NSFW', 'slug': 'nsfw'}],
+        }
+        get.side_effect = [
+            Mock(json=lambda: {'results': [game]}),
+            Mock(json=lambda: game),
+        ]
+        self.sign_in(self.staff)
+
+        result = self.send('admin/import', {'title': 'Explicit RPG', 'source': 'rawg'})
+
+        self.assertEqual(result.status_code, 400)
+        self.assertIn('foco em conteúdo adulto explícito', result.json()['error'])
+        self.assertFalse(Work.objects.filter(rawg_id='456').exists())
+
+    def test_rawg_metacritic_title_list_has_999_unique_entries_per_category(self):
+        self.assertEqual(len(TITLE_LIST), 999)
+        self.assertEqual(
+            {category: sum(entry['category'] == category for entry in TITLE_LIST) for category in {
+                'best_rated', 'popular_user_score', 'recent_releases',
+            }},
+            {
+                'best_rated': 333,
+                'popular_user_score': 333,
+                'recent_releases': 333,
+            },
+        )
+        normalized_titles = {
+            ' '.join(entry['title'].casefold().split()) for entry in TITLE_LIST
+        }
+        self.assertEqual(len(normalized_titles), 999)
+
+    @override_settings(RAWG_API_KEY='test-key')
+    @patch('import_rawg_1999.lookup_rawg')
+    def test_rawg_bulk_import_uses_metacritic_titles_and_skips_existing(self, lookup):
+        Work.objects.create(
+            title='Existing game', category='Jogos', year=2020,
+            synopsis='Description', creator='Studio', rawg_id='101',
+        )
+        lookup.side_effect = [
+            {
+                'title': 'New game', 'category': 'Jogos', 'year': 2021,
+                'synopsis': 'Description', 'creator': 'Studio', 'cast': '',
+                'poster': '', 'rawg_id': '102',
+            },
+            {
+                'title': 'Another game', 'category': 'Jogos', 'year': 2022,
+                'synopsis': 'Description', 'creator': 'Studio', 'cast': '',
+                'poster': '', 'rawg_id': '103',
+            },
+        ]
+        titles = [
+            {'title': 'Existing game', 'category': 'best_rated'},
+            {'title': 'New game', 'category': 'popular_user_score'},
+            {'title': 'Another game', 'category': 'recent_releases'},
+        ]
+
+        result = import_games(count=3, delay=0, titles=titles)
+
+        self.assertEqual(result['inserted'], 2)
+        self.assertEqual(result['skipped'], 1)
+        self.assertEqual(result['errors'], 0)
+        self.assertEqual(result['processed'], 3)
+        self.assertEqual(lookup.call_count, 2)
+        self.assertEqual(lookup.call_args_list[0].kwargs, {'title': 'New game'})
+        self.assertEqual(lookup.call_args_list[1].kwargs, {'title': 'Another game'})
+        self.assertEqual(Work.objects.filter(category='Jogos').count(), 3)
+        self.assertTrue(Work.objects.filter(rawg_id='102').exists())
+        self.assertTrue(Work.objects.filter(rawg_id='103').exists())
+
+    @override_settings(RAWG_API_KEY='test-key')
+    @patch('import_rawg_1999.lookup_rawg')
+    def test_rawg_dry_run_skips_duplicate_rawg_ids(self, lookup):
+        lookup.return_value = {
+            'title': 'Shared result', 'category': 'Jogos', 'year': 2021,
+            'synopsis': 'Description', 'creator': 'Studio', 'cast': '',
+            'poster': '', 'rawg_id': '102',
+        }
+        titles = [
+            {'title': 'Alias one', 'category': 'best_rated'},
+            {'title': 'Alias two', 'category': 'popular_user_score'},
+        ]
+
+        result = import_games(count=2, delay=0, dry_run=True, titles=titles)
+
+        self.assertEqual(result['inserted'], 1)
+        self.assertEqual(result['skipped'], 1)
+        self.assertEqual(result['errors'], 0)
+        self.assertFalse(Work.objects.filter(rawg_id='102').exists())
 
     def test_invalid_input_does_not_crash(self):
         self.sign_in()

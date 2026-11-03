@@ -1,0 +1,4007 @@
+{
+  "source": "Metacritic",
+  "snapshot_date": "2026-10-25",
+  "selection": {
+    "best_rated": "https://www.metacritic.com/browse/game/all/all/all-time/metascore/",
+    "popular_user_score": "https://www.metacritic.com/browse/game/all/all/all-time/userscore/",
+    "recent_releases": "https://www.metacritic.com/browse/game/all/all/current-year/metascore/"
+  },
+  "titles": [
+    {
+      "title": "The Legend of Zelda: Ocarina of Time",
+      "category": "best_rated"
+    },
+    {
+      "title": "SoulCalibur",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario Galaxy 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto IV",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario Galaxy",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto V",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Breath of the Wild",
+      "category": "best_rated"
+    },
+    {
+      "title": "Perfect Dark",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tony Hawk's Pro Skater 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Red Dead Redemption 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metroid Prime",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto III",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario Odyssey",
+      "category": "best_rated"
+    },
+    {
+      "title": "Halo: Combat Evolved",
+      "category": "best_rated"
+    },
+    {
+      "title": "NFL 2K1",
+      "category": "best_rated"
+    },
+    {
+      "title": "Half-Life 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "BioShock",
+      "category": "best_rated"
+    },
+    {
+      "title": "GoldenEye 007",
+      "category": "best_rated"
+    },
+    {
+      "title": "Uncharted 2: Among Thieves",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil 4",
+      "category": "best_rated"
+    },
+    {
+      "title": "Baldur's Gate 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Orange Box",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tekken 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mass Effect 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "The House in Fata Morgana - Dreams of the Revenants Edition -",
+      "category": "best_rated"
+    },
+    {
+      "title": "Elden Ring",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Elder Scrolls V: Skyrim",
+      "category": "best_rated"
+    },
+    {
+      "title": "Half-Life",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Tears of the Kingdom",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: The Wind Waker",
+      "category": "best_rated"
+    },
+    {
+      "title": "Gran Turismo",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metal Gear Solid 2: Sons of Liberty",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto Double Pack",
+      "category": "best_rated"
+    },
+    {
+      "title": "Portal: Companion Collection",
+      "category": "best_rated"
+    },
+    {
+      "title": "Baldur's Gate II: Shadows of Amn",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto: San Andreas",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto: Vice City",
+      "category": "best_rated"
+    },
+    {
+      "title": "LittleBigPlanet",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda Collector's Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Halo 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Gran Turismo 3: A-Spec",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: A Link to the Past / Four Swords",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Majora's Mask",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Last of Us",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Twilight Princess",
+      "category": "best_rated"
+    },
+    {
+      "title": "Madden NFL 2003",
+      "category": "best_rated"
+    },
+    {
+      "title": "Hades II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Persona 5 Royal",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Last of Us Remastered",
+      "category": "best_rated"
+    },
+    {
+      "title": "Red Dead Redemption",
+      "category": "best_rated"
+    },
+    {
+      "title": "Portal 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Astro Bot",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy IX",
+      "category": "best_rated"
+    },
+    {
+      "title": "God of War",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tony Hawk's Pro Skater 4",
+      "category": "best_rated"
+    },
+    {
+      "title": "Elden Ring: Shadow of the Erdtree",
+      "category": "best_rated"
+    },
+    {
+      "title": "Devil May Cry",
+      "category": "best_rated"
+    },
+    {
+      "title": "Madden NFL 2002",
+      "category": "best_rated"
+    },
+    {
+      "title": "Batman: Arkham City",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metroid Prime Remastered",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Ocarina of Time 3D",
+      "category": "best_rated"
+    },
+    {
+      "title": "Chrono Cross",
+      "category": "best_rated"
+    },
+    {
+      "title": "Madden NFL 2004",
+      "category": "best_rated"
+    },
+    {
+      "title": "Gears of War",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Elder Scrolls IV: Oblivion",
+      "category": "best_rated"
+    },
+    {
+      "title": "Sid Meier's Civilization II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Quake",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metaphor: ReFantazio",
+      "category": "best_rated"
+    },
+    {
+      "title": "Call of Duty 4: Modern Warfare",
+      "category": "best_rated"
+    },
+    {
+      "title": "BioShock Infinite",
+      "category": "best_rated"
+    },
+    {
+      "title": "Halo 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Ninja Gaiden Black",
+      "category": "best_rated"
+    },
+    {
+      "title": "Jet Set Radio",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grim Fandango",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metal Gear Solid",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario Advance 4: Super Mario Bros. 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tom Clancy's Splinter Cell: Chaos Theory",
+      "category": "best_rated"
+    },
+    {
+      "title": "God of War: Ragnarok",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil Code: Veronica",
+      "category": "best_rated"
+    },
+    {
+      "title": "Burnout 3: Takedown",
+      "category": "best_rated"
+    },
+    {
+      "title": "Diablo",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metal Gear Solid 3: Subsistence",
+      "category": "best_rated"
+    },
+    {
+      "title": "Call of Duty: Modern Warfare 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metal Gear Solid 4: Guns of the Patriots",
+      "category": "best_rated"
+    },
+    {
+      "title": "Star Wars: Knights of the Old Republic",
+      "category": "best_rated"
+    },
+    {
+      "title": "Sid Meier's Civilization IV",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario 64",
+      "category": "best_rated"
+    },
+    {
+      "title": "Virtua Fighter 4",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Smash Bros. Brawl",
+      "category": "best_rated"
+    },
+    {
+      "title": "Company of Heroes",
+      "category": "best_rated"
+    },
+    {
+      "title": "Gran Turismo 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Last of Us Part II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tom Clancy's Splinter Cell: Pandora Tomorrow",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto: Chinatown Wars",
+      "category": "best_rated"
+    },
+    {
+      "title": "Pac-Man Championship Edition DX",
+      "category": "best_rated"
+    },
+    {
+      "title": "Half-Life: Alyx",
+      "category": "best_rated"
+    },
+    {
+      "title": "Sektori",
+      "category": "best_rated"
+    },
+    {
+      "title": "Divinity: Original Sin II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Unreal Tournament 2004",
+      "category": "best_rated"
+    },
+    {
+      "title": "Braid",
+      "category": "best_rated"
+    },
+    {
+      "title": "God of War II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario 3D World",
+      "category": "best_rated"
+    },
+    {
+      "title": "Starcraft II: Wings of Liberty",
+      "category": "best_rated"
+    },
+    {
+      "title": "SSX",
+      "category": "best_rated"
+    },
+    {
+      "title": "Street Fighter IV",
+      "category": "best_rated"
+    },
+    {
+      "title": "Minecraft",
+      "category": "best_rated"
+    },
+    {
+      "title": "Persona 4 Golden",
+      "category": "best_rated"
+    },
+    {
+      "title": "Persona 5",
+      "category": "best_rated"
+    },
+    {
+      "title": "Homeworld",
+      "category": "best_rated"
+    },
+    {
+      "title": "Quake III Arena",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tom Clancy's Splinter Cell",
+      "category": "best_rated"
+    },
+    {
+      "title": "SSX 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Okami",
+      "category": "best_rated"
+    },
+    {
+      "title": "Fallout 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Gears of War 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "SoulCalibur II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Pro Evolution Soccer 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mass Effect 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metal Gear Solid V: The Phantom Pain",
+      "category": "best_rated"
+    },
+    {
+      "title": "Skies of Arcadia",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Skyward Sword",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario Kart: Super Circuit",
+      "category": "best_rated"
+    },
+    {
+      "title": "Rock Band 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "NBA 2K1",
+      "category": "best_rated"
+    },
+    {
+      "title": "Viewtiful Joe",
+      "category": "best_rated"
+    },
+    {
+      "title": "Hades",
+      "category": "best_rated"
+    },
+    {
+      "title": "Virtua Fighter 4: Evolution",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil 2: Deluxe Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Uncharted 4: A Thief's End",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Smash Bros. Ultimate",
+      "category": "best_rated"
+    },
+    {
+      "title": "Wipeout XL",
+      "category": "best_rated"
+    },
+    {
+      "title": "Paper Mario",
+      "category": "best_rated"
+    },
+    {
+      "title": "INSIDE",
+      "category": "best_rated"
+    },
+    {
+      "title": "World of Warcraft",
+      "category": "best_rated"
+    },
+    {
+      "title": "Flipnote Studio",
+      "category": "best_rated"
+    },
+    {
+      "title": "World Soccer Winning Eleven 7 International",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Witcher 3: Wild Hunt - Remastered",
+      "category": "best_rated"
+    },
+    {
+      "title": "Clair Obscur: Expedition 33",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Horizon 4",
+      "category": "best_rated"
+    },
+    {
+      "title": "God of War III",
+      "category": "best_rated"
+    },
+    {
+      "title": "NFL 2K3",
+      "category": "best_rated"
+    },
+    {
+      "title": "SSX Tricky",
+      "category": "best_rated"
+    },
+    {
+      "title": "NHL 2002",
+      "category": "best_rated"
+    },
+    {
+      "title": "Prince of Persia: The Sands of Time",
+      "category": "best_rated"
+    },
+    {
+      "title": "Uncharted 3: Drake's Deception",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy VII Rebirth",
+      "category": "best_rated"
+    },
+    {
+      "title": "Rock Band",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario Bros. Wonder",
+      "category": "best_rated"
+    },
+    {
+      "title": "Xenoblade Chronicles 3: Expansion Pass Wave 4 - Future Redeemed",
+      "category": "best_rated"
+    },
+    {
+      "title": "Bloodborne",
+      "category": "best_rated"
+    },
+    {
+      "title": "Eternal Darkness: Sanity's Requiem",
+      "category": "best_rated"
+    },
+    {
+      "title": "Warcraft III: Reign of Chaos",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Sims",
+      "category": "best_rated"
+    },
+    {
+      "title": "Banjo-Kazooie",
+      "category": "best_rated"
+    },
+    {
+      "title": "Sid Meier's Gettysburg!",
+      "category": "best_rated"
+    },
+    {
+      "title": "Celeste",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Motorsport",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Horizon 5",
+      "category": "best_rated"
+    },
+    {
+      "title": "Vagrant Story",
+      "category": "best_rated"
+    },
+    {
+      "title": "Advance Wars",
+      "category": "best_rated"
+    },
+    {
+      "title": "Blue Prince",
+      "category": "best_rated"
+    },
+    {
+      "title": "Team Fortress 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "System Shock 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy XII",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Witcher 3: Wild Hunt",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario World: Super Mario Advance 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "ESPN NFL 2K5",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Smash Bros. Melee",
+      "category": "best_rated"
+    },
+    {
+      "title": "Street Fighter 6",
+      "category": "best_rated"
+    },
+    {
+      "title": "Virtua Tennis",
+      "category": "best_rated"
+    },
+    {
+      "title": "Rome: Total War",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Motorsport 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Demon's Souls",
+      "category": "best_rated"
+    },
+    {
+      "title": "Undertale",
+      "category": "best_rated"
+    },
+    {
+      "title": "Batman: Arkham Asylum",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Mario Sunshine",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tony Hawk's Pro Skater",
+      "category": "best_rated"
+    },
+    {
+      "title": "Thief: The Dark Project",
+      "category": "best_rated"
+    },
+    {
+      "title": "Fire Emblem: Awakening",
+      "category": "best_rated"
+    },
+    {
+      "title": "Age of Empires II: The Age of Kings",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy X",
+      "category": "best_rated"
+    },
+    {
+      "title": "Wave Race 64",
+      "category": "best_rated"
+    },
+    {
+      "title": "Sid Meier's Alpha Centauri",
+      "category": "best_rated"
+    },
+    {
+      "title": "Divinity: Original Sin II - Definitive Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Galactic Civilizations II: Twilight of the Arnor",
+      "category": "best_rated"
+    },
+    {
+      "title": "Super Smash Bros. for Nintendo 3DS / Wii U",
+      "category": "best_rated"
+    },
+    {
+      "title": "Guitar Hero II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy VII",
+      "category": "best_rated"
+    },
+    {
+      "title": "Chrono Trigger",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy XIV: Endwalker",
+      "category": "best_rated"
+    },
+    {
+      "title": "Journey",
+      "category": "best_rated"
+    },
+    {
+      "title": "Medal of Honor",
+      "category": "best_rated"
+    },
+    {
+      "title": "Conker's Bad Fur Day",
+      "category": "best_rated"
+    },
+    {
+      "title": "Rock Band 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario Kart 8 Deluxe",
+      "category": "best_rated"
+    },
+    {
+      "title": "The ICO & Shadow of the Colossus Collection",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metroid Prime 2: Echoes",
+      "category": "best_rated"
+    },
+    {
+      "title": "Out of the Park Baseball 17",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metroid Fusion",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Witcher 3: Wild Hunt - Blood and Wine",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy VI",
+      "category": "best_rated"
+    },
+    {
+      "title": "Rayman Legends",
+      "category": "best_rated"
+    },
+    {
+      "title": "UFO 50",
+      "category": "best_rated"
+    },
+    {
+      "title": "Madden NFL 2005",
+      "category": "best_rated"
+    },
+    {
+      "title": "Against the Storm",
+      "category": "best_rated"
+    },
+    {
+      "title": "Medal of Honor: Allied Assault",
+      "category": "best_rated"
+    },
+    {
+      "title": "Myth: The Fallen Lords",
+      "category": "best_rated"
+    },
+    {
+      "title": "LittleBigPlanet 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Microsoft Flight Simulator",
+      "category": "best_rated"
+    },
+    {
+      "title": "Guitar Hero",
+      "category": "best_rated"
+    },
+    {
+      "title": "Slay The Princess - The Pristine Cut",
+      "category": "best_rated"
+    },
+    {
+      "title": "World of Warcraft: Wrath of the Lich King",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metroid Prime Trilogy",
+      "category": "best_rated"
+    },
+    {
+      "title": "I Was a Teenage Exocolonist",
+      "category": "best_rated"
+    },
+    {
+      "title": "Madden NFL 2001",
+      "category": "best_rated"
+    },
+    {
+      "title": "Baldur's Gate",
+      "category": "best_rated"
+    },
+    {
+      "title": "Overwatch",
+      "category": "best_rated"
+    },
+    {
+      "title": "Bayonetta 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Big Walk",
+      "category": "best_rated"
+    },
+    {
+      "title": "Klonoa 2: Lunatea's Veil",
+      "category": "best_rated"
+    },
+    {
+      "title": "Colony Wars",
+      "category": "best_rated"
+    },
+    {
+      "title": "FreeSpace 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "IL-2 Sturmovik",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario Tennis",
+      "category": "best_rated"
+    },
+    {
+      "title": "Ratchet & Clank: Up Your Arsenal",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil (Remake)",
+      "category": "best_rated"
+    },
+    {
+      "title": "Metal Gear Solid 3: Snake Eater",
+      "category": "best_rated"
+    },
+    {
+      "title": "Dragon Quest XI S: Echoes of an Elusive Age - Definitive Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tomb Raider",
+      "category": "best_rated"
+    },
+    {
+      "title": "Spyro: Year of the Dragon",
+      "category": "best_rated"
+    },
+    {
+      "title": "Twisted Metal: Black",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Horizon 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Ocarina of Time / Master Quest",
+      "category": "best_rated"
+    },
+    {
+      "title": "NCAA Football 2003",
+      "category": "best_rated"
+    },
+    {
+      "title": "Dwarf Fortress",
+      "category": "best_rated"
+    },
+    {
+      "title": "Kentucky Route Zero - Act III",
+      "category": "best_rated"
+    },
+    {
+      "title": "Crysis",
+      "category": "best_rated"
+    },
+    {
+      "title": "Ninja Gaiden",
+      "category": "best_rated"
+    },
+    {
+      "title": "God of War: Chains of Olympus",
+      "category": "best_rated"
+    },
+    {
+      "title": "DOA2: Hardcore",
+      "category": "best_rated"
+    },
+    {
+      "title": "World of Warcraft: The Burning Crusade",
+      "category": "best_rated"
+    },
+    {
+      "title": "MLB 10: The Show",
+      "category": "best_rated"
+    },
+    {
+      "title": "Shadow of the Colossus",
+      "category": "best_rated"
+    },
+    {
+      "title": "Yoshi's Island: Super Mario Advance 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Star Wars Jedi Knight: Dark Forces II",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Longest Journey",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tony Hawk's Pro Skater 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "ESPN NFL Football",
+      "category": "best_rated"
+    },
+    {
+      "title": "Killzone 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Halo: Reach",
+      "category": "best_rated"
+    },
+    {
+      "title": "Galactic Civilizations II: Dark Avatar",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mass Effect",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Operative: No One Lives Forever",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil 3: Nemesis",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Motorsport 4",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil",
+      "category": "best_rated"
+    },
+    {
+      "title": "Crusader Kings III",
+      "category": "best_rated"
+    },
+    {
+      "title": "Split Fiction",
+      "category": "best_rated"
+    },
+    {
+      "title": "Battlefield 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "God of War Collection",
+      "category": "best_rated"
+    },
+    {
+      "title": "Planescape: Torment",
+      "category": "best_rated"
+    },
+    {
+      "title": "Gears of War 3",
+      "category": "best_rated"
+    },
+    {
+      "title": "Neverwinter Nights",
+      "category": "best_rated"
+    },
+    {
+      "title": "No One Lives Forever 2: A Spy in H.A.R.M.'s Way",
+      "category": "best_rated"
+    },
+    {
+      "title": "Castlevania: Aria of Sorrow",
+      "category": "best_rated"
+    },
+    {
+      "title": "Legacy of Kain: Soul Reaver",
+      "category": "best_rated"
+    },
+    {
+      "title": "Golden Sun",
+      "category": "best_rated"
+    },
+    {
+      "title": "DOOM: The Dark Ages - Revelations",
+      "category": "best_rated"
+    },
+    {
+      "title": "Disco Elysium",
+      "category": "best_rated"
+    },
+    {
+      "title": "World Soccer Winning Eleven 8 International",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: A Link Between Worlds",
+      "category": "best_rated"
+    },
+    {
+      "title": "NieR: Automata - Game of the YoRHa Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Castlevania: Circle of the Moon",
+      "category": "best_rated"
+    },
+    {
+      "title": "Resident Evil 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Donkey Kong Bananza",
+      "category": "best_rated"
+    },
+    {
+      "title": "Satisfactory",
+      "category": "best_rated"
+    },
+    {
+      "title": "Caves of Qud",
+      "category": "best_rated"
+    },
+    {
+      "title": "Dark Souls II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Shovel Knight: Treasure Trove",
+      "category": "best_rated"
+    },
+    {
+      "title": "Crash Bandicoot: Warped",
+      "category": "best_rated"
+    },
+    {
+      "title": "Call of Duty",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario Kart DS",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario Golf",
+      "category": "best_rated"
+    },
+    {
+      "title": "Assassin's Creed II",
+      "category": "best_rated"
+    },
+    {
+      "title": "Animal Well",
+      "category": "best_rated"
+    },
+    {
+      "title": "Balatro",
+      "category": "best_rated"
+    },
+    {
+      "title": "Project Gotham Racing 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Animal Crossing: New Horizons",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Sims 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Final Fantasy XIV: Shadowbringers",
+      "category": "best_rated"
+    },
+    {
+      "title": "Forza Horizon 6",
+      "category": "best_rated"
+    },
+    {
+      "title": "World of Warcraft: Cataclysm",
+      "category": "best_rated"
+    },
+    {
+      "title": "Bayonetta",
+      "category": "best_rated"
+    },
+    {
+      "title": "Diablo III: Ultimate Evil Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "ICO",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tom Clancy's Ghost Recon Advanced Warfighter",
+      "category": "best_rated"
+    },
+    {
+      "title": "World of Goo",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario & Luigi: Superstar Saga",
+      "category": "best_rated"
+    },
+    {
+      "title": "Hollow Knight: Silksong",
+      "category": "best_rated"
+    },
+    {
+      "title": "Slay the Princess",
+      "category": "best_rated"
+    },
+    {
+      "title": "Syphon Filter",
+      "category": "best_rated"
+    },
+    {
+      "title": "Ape Escape",
+      "category": "best_rated"
+    },
+    {
+      "title": "Marvel vs. Capcom 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tony Hawk's Underground",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mario & Luigi: Bowser's Inside Story",
+      "category": "best_rated"
+    },
+    {
+      "title": "Trials Evolution",
+      "category": "best_rated"
+    },
+    {
+      "title": "Grand Theft Auto IV: The Lost and Damned",
+      "category": "best_rated"
+    },
+    {
+      "title": "FIFA Soccer 12",
+      "category": "best_rated"
+    },
+    {
+      "title": "Factorio",
+      "category": "best_rated"
+    },
+    {
+      "title": "Black & White",
+      "category": "best_rated"
+    },
+    {
+      "title": "NBA Street Vol. 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "Ratchet & Clank: Going Commando",
+      "category": "best_rated"
+    },
+    {
+      "title": "FIFA Soccer 10",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: The Wind Waker HD",
+      "category": "best_rated"
+    },
+    {
+      "title": "Elden Ring: Tarnished Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Portal",
+      "category": "best_rated"
+    },
+    {
+      "title": "The Legend of Zelda: Phantom Hourglass",
+      "category": "best_rated"
+    },
+    {
+      "title": "Dance Dance Revolution",
+      "category": "best_rated"
+    },
+    {
+      "title": "NHL 2001",
+      "category": "best_rated"
+    },
+    {
+      "title": "Jack Jeanne",
+      "category": "best_rated"
+    },
+    {
+      "title": "Advance Wars: Dual Strike",
+      "category": "best_rated"
+    },
+    {
+      "title": "Marvel's Spider-Man 2",
+      "category": "best_rated"
+    },
+    {
+      "title": "MLB 11: The Show",
+      "category": "best_rated"
+    },
+    {
+      "title": "NieR: Automata - Become as Gods Edition",
+      "category": "best_rated"
+    },
+    {
+      "title": "Mina the Hollower",
+      "category": "best_rated"
+    },
+    {
+      "title": "Jak and Daxter: The Precursor Legacy",
+      "category": "best_rated"
+    },
+    {
+      "title": "Star Wars Rogue Leader: Rogue Squadron II",
+      "category": "best_rated"
+    },
+    {
+      "title": "NCAA Football 2002",
+      "category": "best_rated"
+    },
+    {
+      "title": "Deus Ex",
+      "category": "best_rated"
+    },
+    {
+      "title": "Donkey Kong 64",
+      "category": "best_rated"
+    },
+    {
+      "title": "Tsukihime: A Piece of Blue Glass Moon",
+      "category": "best_rated"
+    },
+    {
+      "title": "Silent Hill 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Resident Evil Requiem",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Disney Cory in the House",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Warcraft III: The Frozen Throne",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heroes of Might and Magic III",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Gran Turismo 4",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Silent Hill 2: Restless Dreams",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Witcher 3: Wild Hunt - Hearts of Stone",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Splatoon Raiders",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Midnight Club 3: DUB Edition Remix",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pokemon HeartGold Version",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Starcraft: Brood War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Empires II: The Conquerors Expansion",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Diablo II: Lord of Destruction",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pokemon Mystery Dungeon: Explorers of Sky",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pokemon SoulSilver Version",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Metal Gear Solid HD Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ghost of Tsushima",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Bloodborne: The Old Hunters",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Stellar Blade",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pokemon Pokopia: Bubbly Basin",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kingdom Hearts II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Gothic II: Gold Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Phoenix Wright: Ace Attorney - Trials and Tribulations",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Baldur's Gate II: Throne of Bhaal",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heroes of Might and Magic III: The Shadow of Death",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Space Rangers 2: Rise of the Dominators",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pikmin 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shenmue",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Paper Mario: The Thousand-Year Door",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Half-Life 2: Episode Two",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Hollow Knight",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Digimon Story Time Stranger",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Omori",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Astral Chain",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Hollow Knight: Voidheart Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Metal Gear Solid: The Legacy Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Final Fantasy Resonance",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Max Payne",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "JSRF: Jet Set Radio Future",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ace Combat 5: The Unsung War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Silent Hill",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Curse of Monkey Island",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Castlevania: Symphony of the Night",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Metal Gear Solid Integral",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Silent Hill 2: Director's Cut",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Jagged Alliance 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shenmue II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer: Red Alert 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Gothic II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shin Megami Tensei: Persona 3 FES",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pokemon Platinum Version",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Supreme Commander: Forged Alliance",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Xenosaga Episode III: Also sprach Zarathustra",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sly 2: Band of Thieves",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Total Annihilation",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Golden Sun: The Lost Age",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Mythology: The Titans",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heroes of Might and Magic III: Armageddon's Blade",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "CTR: Crash Team Racing",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Neverhood",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Donkey Kong Country: Tropical Freeze",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ever17: The Out of Infinity",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Donkey Kong Country 2: Diddy's Kong Quest",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Phoenix Wright: Ace Attorney",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The World Ends with You",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Vampire: The Masquerade - Bloodlines",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Devil May Cry 3: Dante's Awakening",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Metroid: Zero Mission",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sid Meier's Civilization IV: Beyond the Sword",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ace Combat Zero: The Belkan War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Medieval II: Total War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Yakuza 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Xenoblade Chronicles: Definitive Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Astro Bot Rescue Mission",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Outer Wilds",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kirby's Dream Collection: Special Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Jak and Daxter Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Inazuma Eleven Go: Chrono Stones - Wildfire",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Steins;Gate",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ori and the Will of the Wisps",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fire Emblem: Three Houses",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "God of War Saga",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Yo-kai Watch 2: Psychic Specters",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Tearaway",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Legend of Zelda: Majora's Mask 3D",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Calculator",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Outer Wilds: Echoes of the Eye",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Mario Kart 8",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Astro's Playroom",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Enderal: Forgotten Stories",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "OneShot",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "drowning (Rapture)",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Deltarune: Chapter 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "DELTARUNE",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Paranormasight: The Seven Mysteries of Honjo",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Outer Wilds: Archaeologist Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Cyberpunk 2077: Phantom Liberty",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pikmin 4",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fire Emblem: Path of Radiance",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "God Hand",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heroes of Might and Magic II: The Succession Wars",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fire Emblem",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Max Payne 2: The Fall of Max Payne",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Empires II: Gold Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Def Jam: Fight for NY",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Burnout Revenge",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Space Rangers",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Midnight Club 3: DUB Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Legend of Zelda: The Minish Cap",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Mount & Blade: Warband",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "WWE SmackDown! Here Comes the Pain",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Space Rangers 2: Reboot",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "RollerCoaster Tycoon 2: Triple Thrill Pack",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ape Escape 3",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kirby's Return to Dream Land",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ratchet & Clank Future: A Crack in Time",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shin Megami Tensei: Persona 4",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heart of Darkness",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Lunar: Silver Star Story",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Might and Magic VII: For Blood and Honor",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Worms Armageddon",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Thief II: The Metal Age",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Diablo II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Mythology",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "F-Zero GX",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Quake II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dungeon Keeper 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Warcraft II: Battle.net Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dungeon Keeper",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Original War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Wonders",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Ultimate DOOM",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Freelancer",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Harvest Moon: Back to Nature",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Stronghold",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Valkyrie Profile 2: Silmeria",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heroes of Might and Magic II: The Price of Loyalty",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Tales of Symphonia",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Homeworld: Cataclysm",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Stronghold: Crusader",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon Ball Z: Budokai Tenkaichi 3",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Portal: Still Alive",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sly 3: Honor Among Thieves",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Clannad",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Wonders: Shadow Magic",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Bully",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Lord of the Rings: The Battle for Middle-Earth",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pokemon Emerald Version",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon Ball Z: The Legacy of Goku II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Melty Blood Actress Again Current Code",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Nine Hours, Nine Persons, Nine Doors",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Age of Empires II: Definitive Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "13 Sentinels: Aegis Rim",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kingdom Hearts: All-in-One Package",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pikmin 3",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Walking Dead: A Telltale Games Series",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "To the Moon",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Firewall Zero Hour",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "P.T.",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Darkarta: A Broken Heart's Quest",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Crap Attack",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Bayonetta + Bayonetta 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Red Dead Redemption: Game of the Year Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "DCS: A-10C Warthog",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Danganronpa 2: Goodbye Despair",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Stardew Valley",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Wolf Among Us: Episode 1 - Faith",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "RimWorld",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "God of War: Origins Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sonic 3 & Knuckles",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Animal Crossing: New Leaf",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sly Cooper Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Garry's Mod",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Killzone: Mercenary",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dark Souls: Artorias of the Abyss",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "NieR: Automata",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Everlasting Summer",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Yakuza 0",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Therian Saga",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dark Souls III",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Days Gone Remastered",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Theatrhythm Final Bar Line",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Resident Evil 4: Separate Ways",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pizza Tower",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sonic x Shadow Generations",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Until Then",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Hi-Fi Rush",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "CONTROL Resonant",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dispatch",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Claw",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Arcanum: Of Steamworks and Magick Obscura",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Metal Gear Solid: The Twin Snakes",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "We Love Katamari",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Haunting Ground",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Chibi-Robo",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Lord of the Rings: The Battle for Middle-Earth II - The Rise of the Witch-King",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Need for Speed: Underground 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon Quest VIII: Journey of the Cursed King",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Romance of the Three Kingdoms XI",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Might and Magic VIII: Day of the Destroyer",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Theme Hospital",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Outcast",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Rise of Nations: Thrones & Patriots",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer: Red Alert 2 - Yuri's Revenge",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Spyro the Dragon",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Disciples II: Dark Prophecy",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Operation Flashpoint: Resistance",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Rise of Nations",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer: Generals - Zero Hour",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ace Combat 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Might and Magic VI: The Mandate of Heaven",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Master of Orion II: Battle at Antares",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Warcraft II: Tides of Darkness",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Metal Fatigue",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Beyond Good & Evil",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Legend of Dragoon",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "X-COM: Apocalypse",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Star Fox 64",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Blood",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Cossacks: Back to War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Silent Hill 3",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Wario Land 4",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer: Tiberian Sun",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shin Megami Tensei: Nocturne",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fallout",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "RollerCoaster Tycoon 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Panzer Dragoon Orta",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dead Space",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Professor Layton and the Unwound Future",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fallout: New Vegas",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sonic the Hedgehog 3",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fatal Frame II: Crimson Butterfly",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Knights of Honor",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Jak 3",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Warhammer 40,000: Dawn of War - Dark Crusade",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Star Wars: Knights of the Old Republic II - The Sith Lords",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shin Megami Tensei: Persona 3 Portable",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dead Space 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kid Icarus: Uprising",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "God of War: Ghost of Sparta",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Solatorobo: Red the Hunter",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ys: Memories of Celceta",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Space Rangers HD: A War Apart",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Zero Escape: Virtue's Last Reward",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Wolf Among Us: Episode 5 - Cry Wolf",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Creeper World 3: Arc Eternal",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Soul Sacrifice Delta",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Forza Horizon",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Katawa Shoujo",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Monster Hunter 4 Ultimate",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Legend of Heroes: Trails in the Sky SC",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Cat Lady",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Elder Scrolls Anthology",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Xenoblade Chronicles X",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Journey Collector's Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Black Mesa",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Walking Dead: Episode 5 - No Time Left",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "OpenTTD",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dark Souls III: The Ringed City",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "PRAGMATA",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "StopGate",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sid Meier's Civilization V: The Complete Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The House in Fata Morgana",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Splatoon",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pillars of Eternity: The White March - Part 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer Remastered Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Cruelty Squad",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Return of the Obra Dinn",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Mortal Kombat Komplete Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Nightfall: Escape",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Bloodborne: Complete Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Anomaly Agent",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Trails in the Sky 1st Chapter",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kingdom Come: Deliverance II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Paper Trail",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "SCP - Containment Breach",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "What Happened",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Death Stranding 2: On The Beach",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Mega Man Battle Network Legacy Collection",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "NieR: Automata - The End of YoRHa Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Kirby and the Forgotten Land",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Lies of P: Complete Edition",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon's Dogma 2: Dark Arisen",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Pharaoh",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Clive Barker's Undying",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Spyro 2: Ripto's Rage!",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Star Wars: Battlefront II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shin Megami Tensei: Digital Devil Saga",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Rule of Rose",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "SWAT 4",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "King's Bounty: The Legend",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sonic Unleashed",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Wii Sports Resort",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dawn of Discovery",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "TrackMania Nations Forever",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Shadow Hearts: Covenant",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon Ball Z: Buu's Fury",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Ratchet & Clank Future: Tools of Destruction",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "SWAT 4: The Stetchkov Syndicate",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon Ball Z: Budokai Tenkaichi 2",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Fire Emblem: Radiant Dawn",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Heroes of Might and Magic V: Tribes of the East",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Drakensang: The River of Time",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Sid Meier's Civilization V: Brave New World",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Crash Bandicoot 2: Cortex Strikes Back",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Final DOOM",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Tenchu 2: Birth of the Stealth Assassins",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Mario Kart: Double Dash!!",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Commandos: Beyond the Call of Duty",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Myth II: Soulblighter",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Emperor: Battle for Dune",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Rise to Honor",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Command & Conquer: Red Alert",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "R4: Ridge Racer Type 4",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Warcraft II: Beyond the Dark Portal",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Medieval: Total War",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Killer7",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Vietcong",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Caesar III",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Disciples II: Rise of the Elves",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Breath of Fire III",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Settlers II",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Zeus: Master of Olympus",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "The Last Story",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Onimusha 3: Demon Siege",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Urban Reign",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Mario Kart Wii",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Dragon Quest V: Hand of the Heavenly Bride",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "NIER",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Katamari Damacy",
+      "category": "popular_user_score"
+    },
+    {
+      "title": "Trails in the Sky 2nd Chapter",
+      "category": "recent_releases"
+    },
+    {
+      "title": "and Roger",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Schrodinger's Call",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Final Fantasy VII Remake Intergrade",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Valheim",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Pokemon Pokopia",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fire Emblem: Fortune's Weave",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Resident Evil 4: Gold Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Desktop Explorer",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Well Dweller",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fields of Mistria",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Kingdom Hearts Collection I ~ III",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Star Wars: Galactic Racer",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Denshattack!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Enshrouded",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mewgenics",
+      "category": "recent_releases"
+    },
+    {
+      "title": "007 First Light",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ace Combat 8: Wings of Theve",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Gears of War: E-Day",
+      "category": "recent_releases"
+    },
+    {
+      "title": "SAROS",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Hermit and Pig",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Resident Evil 7: biohazard - Gold Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Welcome to Elderfield",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Call of Duty: Modern Warfare 4",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Cult of the Lamb: Woolhaven",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Perfect Tides: Station to Station",
+      "category": "recent_releases"
+    },
+    {
+      "title": "DAVE THE DIVER: In the Jungle",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mixtape",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ghost of Yotei: Complete Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Nioh 3",
+      "category": "recent_releases"
+    },
+    {
+      "title": "OPUS: Prism Peak",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dressmaker",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Monster Hunter Stories 3: Twisted Reflection",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Devil May Cry 5: Devil Hunter Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Cairn",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Timberborn",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Titanium Court",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Silver Pines",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Onimusha: Way of the Sword",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Marvel Tokon: Fighting Souls",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Mermaid Mask",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Wax Heads",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Shards of Order",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Sovereign Tower",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Metal Gear Solid: Master Collection Vol. 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Esoteric Ebb",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Star Wars Zero Company",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Legend of Heroes: Trails beyond the Horizon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "BlazBlue Entropy Effect X",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Phonopolis",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Demon Tides",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Incident at Galley House",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Order of the Sinking Star",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ghost of Yotei: Echoes of Sekigahara",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Castlevania: Belmont's Curse",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Diablo IV: Lord of Hatred",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Super Bomberman Collection",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Schrodinger's Cat Burglar",
+      "category": "recent_releases"
+    },
+    {
+      "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl - Cost of Hope",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Planet Zoo 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Assassin's Creed Black Flag Resynced",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Blood of Dawnwalker",
+      "category": "recent_releases"
+    },
+    {
+      "title": "ZERO PARADES: For Dead Spies",
+      "category": "recent_releases"
+    },
+    {
+      "title": "STEINS;GATE RE:BOOT",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Terra Invicta",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ys X: Proud Nordics",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Woodo",
+      "category": "recent_releases"
+    },
+    {
+      "title": "LEGO Batman: Legacy of the Dark Knight",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Moomintroll: Winter's Warmth",
+      "category": "recent_releases"
+    },
+    {
+      "title": "CULTIC",
+      "category": "recent_releases"
+    },
+    {
+      "title": "PARANORMASIGHT: The Mermaid's Curse",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Transport Fever 3",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dragon Quest VII Reimagined",
+      "category": "recent_releases"
+    },
+    {
+      "title": "KuloNiku: Bowl Up!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MIO: Memories in Orbit",
+      "category": "recent_releases"
+    },
+    {
+      "title": "TR-49",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Granblue Fantasy: Relink - Endless Ragnarok",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mortal Shell II",
+      "category": "recent_releases"
+    },
+    {
+      "title": "GRID Legends: Deluxe Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Xenonauts 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Vampire Crawlers: The Turbo Wildcard from Vampire Survivors",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Aether & Iron",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Nighthawks",
+      "category": "recent_releases"
+    },
+    {
+      "title": "World of Warcraft: Midnight",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Diablo IV: Age of Hatred Collection",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ascend to ZERO",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Swan Song",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Apopia: Sugar Coated Tale",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Rhythm Heaven Groove",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Middle-earth: Shadow Bundle",
+      "category": "recent_releases"
+    },
+    {
+      "title": "RACCOIN: Coin Pusher Roguelike",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Escape from Ever After",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Heave Ho 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "TOEM 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Luna Abyss",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Temirana: The Lucky Princess and the Tragic Knights",
+      "category": "recent_releases"
+    },
+    {
+      "title": "KAZ",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Coffee Talk Tokyo",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Marathon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "HellSlave II: Judgment of the Archon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Warhammer 40,000: Boltgun 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Orbitals",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tenebris Somnia",
+      "category": "recent_releases"
+    },
+    {
+      "title": "ReStory: Chill Electronics Repairs",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Moonlight Peaks",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Star Fox",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fallout 4: Anniversary Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Halo: Campaign Evolved",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Gallipoli",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dynasty Warriors: Origins - Visions of Four Heroes",
+      "category": "recent_releases"
+    },
+    {
+      "title": "shapez 2 - Factory",
+      "category": "recent_releases"
+    },
+    {
+      "title": "REANIMAL",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Black Jacket",
+      "category": "recent_releases"
+    },
+    {
+      "title": "GRIME II",
+      "category": "recent_releases"
+    },
+    {
+      "title": "4PGP",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Yoshi and the Mysterious Book",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MOUSE: P.I. For Hire",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Silent Hill: Townfall",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Planet of Lana II",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Whirlight - No Time To Trip",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Truxton Extreme",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fishbowl",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Resident Evil Village Gold Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Pathologic 3",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tales of Arise - Beyond the Dawn Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Terrinoth: Heroes of Descent",
+      "category": "recent_releases"
+    },
+    {
+      "title": "EA Sports UFC 6",
+      "category": "recent_releases"
+    },
+    {
+      "title": "RIDE 6",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Kusan: City of Wolves",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Corsair Cove",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Homura: The Crimson Warriors",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Servant of the Lake",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Cozy Caravan",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Palworld",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Birushana: Winds of Fate",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Nintendo Switch Sports Resort",
+      "category": "recent_releases"
+    },
+    {
+      "title": "No More Room In Hell 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Hozy",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Doloc Town",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Duskfade",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Resonance: A Plague Tale Legacy",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Adventures of Elliot: The Millennium Tales",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Moss: The Forgotten Relic",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Under The Island",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Maestro",
+      "category": "recent_releases"
+    },
+    {
+      "title": "EA Sports College Football 27",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Valor Mortis",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Arknights: Endfield",
+      "category": "recent_releases"
+    },
+    {
+      "title": "F1 25: 2026 Season Pack",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Sinking City 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "2XKO",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Big Hops",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Aniimo",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NBA 2K27",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Voidling Bound",
+      "category": "recent_releases"
+    },
+    {
+      "title": "WWE 2K26",
+      "category": "recent_releases"
+    },
+    {
+      "title": "People of Note",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MOTORSLICE",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Madden NFL 27",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Marsupilami 2 - Salsa Palombia",
+      "category": "recent_releases"
+    },
+    {
+      "title": "DragonSword : Awakening",
+      "category": "recent_releases"
+    },
+    {
+      "title": "inKONBINI: One Store. Many Stories",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Disney/Pixar Toy Story: Retro Roundup!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Battlestar Galactica: Scattered Hopes",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Gurei",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tomodachi Life: Living the Dream",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Bluey's Happy Snaps",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Posthumous Investigation",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Neva: Prologue",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tales of Berseria Remastered",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tales of Eternia Remastered",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Call of the Elder Gods",
+      "category": "recent_releases"
+    },
+    {
+      "title": "LumenTale: Memories of Trey",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Citadelum",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Vultures - Scavengers of Death",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Avatar Legends: The Fighting Game",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Cat Mail Co.",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Crimson Desert",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Bus Bound",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Run",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Alters: Last Variable",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Invincible VS",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mario Tennis Fever",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fading Echo",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Screamer",
+      "category": "recent_releases"
+    },
+    {
+      "title": "PowerWash Simulator 2: Star Wars Pack",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Project Songbird",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Going Medieval",
+      "category": "recent_releases"
+    },
+    {
+      "title": "SPRAWL zero",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Theropods",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Stonemachia",
+      "category": "recent_releases"
+    },
+    {
+      "title": "ENDLESS Legend 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ys Memoire: Revelations in Celceta",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MINOS",
+      "category": "recent_releases"
+    },
+    {
+      "title": "eFootball Kick-Off!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Culdcept BEGINS",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Veritas Tales: Witch of the Dark Castle",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Kotama and Academy Citadel",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Blue Reflection Quartet",
+      "category": "recent_releases"
+    },
+    {
+      "title": "REPLACED",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Love Eternal",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NASCAR 26",
+      "category": "recent_releases"
+    },
+    {
+      "title": "ANTHEM#9",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The 7th Guest Remake",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Jotunnslayer: Hordes of Hel",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Crushed in Time",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Kingdom Come: Deliverance - Next-Gen Update",
+      "category": "recent_releases"
+    },
+    {
+      "title": "RuneScape: Dragonwilds",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MotoGP 26",
+      "category": "recent_releases"
+    },
+    {
+      "title": "RATATAN",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Marvel's Wolverine",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Twisted Tower",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Nivalis Nights",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Minecraft Dungeons II",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Clockwork Ambrosia",
+      "category": "recent_releases"
+    },
+    {
+      "title": "World Heroes Perfect",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Forever Ago",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mega Man Star Force Legacy Collection",
+      "category": "recent_releases"
+    },
+    {
+      "title": "EA Sports FC 27",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Realm of Ink",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Styx: Blades of Greed",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fatal Frame II: Crimson Butterfly REMAKE",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Reigns: The Witcher",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Penguin Colony",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Etrange Overlord",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Star Trek: Voyager - Across the Unknown",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Everything is Crab: The Animal Evolution Roguelite",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Yakuza Kiwami 3 & Dark Ties",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Blood Dungeon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Gothic 1 Remake",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tales of Seikyu",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Crisol: Theater of Idols",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NITRO GEN OMEGA",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Poppy Playtime: Chapter 5",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Earth Must Die",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Midnight Moments",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mafia: The Old Country - Man of Honor",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Scott Pilgrim EX",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Helix: Descent N Ascent",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Homura Hime",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ariana and the Elder Codex",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Captain Tsubasa 2: World Fighters",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Thrifty Business",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Jackbox Party Pack 12",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NTE: Neverness to Everness",
+      "category": "recent_releases"
+    },
+    {
+      "title": "ALL WILL FALL",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Another Eden Begins",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Hot Wheels Infinite Rush",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Crabmeat",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Caribou Trail",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MLB The Show 26",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dynasty Warriors 3 Complete Edition Remastered",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Rune Dice",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Moonlighter 2: The Endless Vault",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Laysara: Summit Kingdom",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Duck Side of the Moon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Gecko Gods",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NBA The Run",
+      "category": "recent_releases"
+    },
+    {
+      "title": "End of Abyss",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Crimson Moon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Darwin's Paradox!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "CASSETTE BOY",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Starship Troopers: Ultimate Bug War!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "John Carpenter's Toxic Commando",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Adorable Adventures",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ratcheteer DX",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Directive 8020",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Romeo is a Dead Man",
+      "category": "recent_releases"
+    },
+    {
+      "title": "ONE PIECE: Grand Gourmet",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Box Knight",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Sims 4: Royalty & Legacy",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Agent 64: Spies Never Die",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Bluey's Quest for the Gold Pen",
+      "category": "recent_releases"
+    },
+    {
+      "title": "My Hero Academia: All's Justice",
+      "category": "recent_releases"
+    },
+    {
+      "title": "over the hill",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Ground Zero",
+      "category": "recent_releases"
+    },
+    {
+      "title": "iRacing Arcade",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Graveyard Keeper 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "High on Life 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "MARVEL MaXimum Collection",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Mexican Ninja",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Fallen Tear: The Ascension",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Confidential Killings - A Detective Game",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Beast of Reincarnation",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Remake of the End of the Greatest RPG of All Time",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Lou's Lagoon",
+      "category": "recent_releases"
+    },
+    {
+      "title": "DAMON and BABY",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Life is Strange: Reunion",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Tides of Tomorrow",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Hell Let Loose: Vietnam",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Super Meat Boy 3D",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Defender of the Crown: The Legend Returns",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Warhammer 40,000: Mechanicus II",
+      "category": "recent_releases"
+    },
+    {
+      "title": "33 Immortals",
+      "category": "recent_releases"
+    },
+    {
+      "title": "World of Tanks: HEAT",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Brigandine Abyss",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Don't Stop, Girlypop!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "A Storied Life: Tabitha",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Town of Zoz",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Doggy Don't Care",
+      "category": "recent_releases"
+    },
+    {
+      "title": "LIFTED",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Legacy of Kain: Defiance Remastered",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Code Vein II",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Echo Generation 2",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Relooted",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Rayman: 30th Anniversary Edition",
+      "category": "recent_releases"
+    },
+    {
+      "title": "D-topia",
+      "category": "recent_releases"
+    },
+    {
+      "title": "STARBITES",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Truck-kun is Supporting Me From Another World?!",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Carmageddon: Rogue Shift",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Deer & Boy",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Last Flag",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Clive Barker's Hellraiser: Revival",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Disciples: Domination",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dosa Divas",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Celestial Return",
+      "category": "recent_releases"
+    },
+    {
+      "title": "BrokenLore: UNFOLLOW",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dragon Quest Heroes: Torneko's Mystery Dungeon -Classic HD-",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Prisoning: Fletcher's Quest",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Little Nightmares VR: Altered Echoes",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NORSE: Oath of Blood",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Garfield: Escape from Monday",
+      "category": "recent_releases"
+    },
+    {
+      "title": "NHL 27",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Starsand Island",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Quarantine Zone: The Last Check",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Company of Heroes 3: Final Stand",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Dead or Alive 6 Last Round",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Catto's Post Office",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Pokemon Champions",
+      "category": "recent_releases"
+    },
+    {
+      "title": "The Mound: Omen of Cthulhu",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Be Missed and Remembered: The Letter from Mayoiga",
+      "category": "recent_releases"
+    },
+    {
+      "title": "Cthulhu: The Cosmic Abyss",
+      "category": "recent_releases"
+    }
+  ]
+}

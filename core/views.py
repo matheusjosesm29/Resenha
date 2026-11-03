@@ -6,6 +6,7 @@ import re
 import uuid
 from decimal import Decimal, InvalidOperation
 from PIL import Image, UnidentifiedImageError
+from datetime import timedelta
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
@@ -14,14 +15,14 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db import IntegrityError, transaction
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Q
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import User, Work, Review, Comment, Like, LibraryEntry, Report
-from .services import lookup_omdb
+from .services import lookup_omdb, lookup_rawg
 
 
 def response(data=None, status=200):
@@ -50,7 +51,88 @@ def serialize_work(w):
     return {'id': w.pk, 'title': w.title, 'category': w.category, 'year': w.year,
             'synopsis': w.synopsis, 'creator': w.creator, 'cast': w.cast, 'poster': w.poster,
             'color': w.color, 'score': float(w.average or 0), 'count': w.review_count,
-            'imdb_id': w.imdb_id}
+            'imdb_id': w.imdb_id, 'rawg_id': w.rawg_id}
+
+
+def works_list(request):
+    user = request.user
+    works = Work.objects.annotate(
+        average=Avg('reviews__score'),
+        review_count=Count('reviews')
+    )
+
+    # Filtros
+    category = request.GET.get('category')
+    if category and category != 'Todos':
+        works = works.filter(category=category)
+
+    query = request.GET.get('query', '').strip()
+    if query:
+        works = works.filter(title__icontains=query)
+
+    year_min = request.GET.get('year_min')
+    if year_min:
+        try:
+            works = works.filter(year__gte=int(year_min))
+        except ValueError:
+            pass
+
+    year_max = request.GET.get('year_max')
+    if year_max:
+        try:
+            works = works.filter(year__lte=int(year_max))
+        except ValueError:
+            pass
+
+    score_min = request.GET.get('score_min')
+    if score_min:
+        try:
+            works = works.filter(average__gte=float(score_min))
+        except ValueError:
+            pass
+
+    # Ordenações
+    order = request.GET.get('order', 'score')
+    now = timezone.now()
+    if order == 'trending':
+        cutoff = now - timedelta(days=14)
+        works = works.annotate(
+            recent_count=Count('reviews', filter=Q(reviews__created_at__gte=cutoff)),
+            recent_likes=Count('reviews__likes', filter=Q(reviews__created_at__gte=cutoff)),
+        ).order_by('-recent_likes', '-recent_count', '-average')
+    elif order == 'popular':
+        works = works.order_by('-review_count', '-average')
+    elif order == 'year':
+        works = works.order_by('-year', '-average')
+    elif order == 'count':
+        works = works.order_by('-review_count', '-average')
+    else:  # score
+        works = works.order_by('-average', '-review_count')
+
+    # Paginação
+    try:
+        page = max(1, int(request.GET.get('page', 1)))
+    except (TypeError, ValueError):
+        page = 1
+    try:
+        page_size = min(100, max(1, int(request.GET.get('page_size', 24))))
+    except (TypeError, ValueError):
+        page_size = 24
+
+    total = works.count()
+    total_pages = max(1, (total + page_size - 1) // page_size)
+    start = (page - 1) * page_size
+    end = start + page_size
+    page_works = works[start:end]
+
+    return response({
+        'works': [serialize_work(w) for w in page_works],
+        'total': total,
+        'page': page,
+        'page_size': page_size,
+        'total_pages': total_pages,
+        'has_next': end < total,
+    })
 
 
 def state(request):
@@ -215,6 +297,16 @@ def dispatch(request, route, data):
             return fail('Limite de consultas atingido. Tente novamente depois.', 429)
         title = text({'title': request.GET.get('title', '')}, 'title', 150)
         return response({'work': lookup_omdb(title=title)})
+    if route == 'rawg' and method == 'GET':
+        if not throttle(request, 'rawg', 20):
+            return fail('Limite de consultas atingido. Tente novamente depois.', 429)
+        rawg_id = request.GET.get('rawg_id', '')
+        if rawg_id:
+            imported = lookup_rawg(rawg_id=rawg_id)
+        else:
+            title = text({'title': request.GET.get('title', '')}, 'title', 150)
+            imported = lookup_rawg(title=title)
+        return response({'work': imported})
     if len(parts) == 2 and parts[0] == 'profiles' and parts[1].isdigit() and method == 'GET':
         target = User.objects.get(pk=parts[1])
         return response({'id': target.pk, 'name': display(target), 'bio': target.bio, 'avatar': target.avatar,
@@ -295,6 +387,8 @@ def dispatch(request, route, data):
                 entry.status = value
             entry.save()
         return response()
+    if route == 'works' and method == 'GET':
+        return works_list(request)
     if route == 'reports' and method == 'POST':
         reason = text(data, 'reason', 30)
         if reason not in dict(Report.REASONS):
@@ -313,10 +407,15 @@ def dispatch(request, route, data):
         if route == 'admin/works' and method == 'POST':
             return response({'id': change_work(data).pk}, 201)
         if route == 'admin/import' and method == 'POST':
-            imported = lookup_omdb(title=text(data, 'title', 150))
-            if not imported['imdb_id']:
-                raise ValidationError('OMDb não retornou um identificador válido.')
-            instance = Work.objects.filter(imdb_id=imported['imdb_id']).first()
+            source = data.get('source', 'omdb')
+            if source not in ['omdb', 'rawg']:
+                raise ValidationError('Fonte de importação inválida.')
+            title = text(data, 'title', 150)
+            imported = lookup_rawg(title=title) if source == 'rawg' else lookup_omdb(title=title)
+            id_field = 'rawg_id' if source == 'rawg' else 'imdb_id'
+            if not imported[id_field]:
+                raise ValidationError(f'{source.upper()} não retornou um identificador válido.')
+            instance = Work.objects.filter(**{id_field: imported[id_field]}).first()
             if not instance:
                 instance = Work(**imported)
                 instance.full_clean()
