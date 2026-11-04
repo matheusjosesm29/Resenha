@@ -559,6 +559,18 @@ label {
   color: #f19068;
   border-color: #e87d51;
 }
+.pager-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 24px 0 8px;
+  color: var(--muted);
+}
+.pager-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 .auth-cta {
   display: flex;
   flex-direction: column;
@@ -595,11 +607,33 @@ th {
 dialog {
   border: 1px solid #454752;
   border-radius: 18px;
-  padding: 32px;
+  padding: 32px 36px 36px;
   background: var(--panel);
   color: var(--text);
-  max-width: 530px;
+  max-width: 720px;
   width: calc(100% - 30px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.poster-preview {
+  margin-top: 10px;
+  border: 1px dashed #51525b;
+  border-radius: 11px;
+  padding: 12px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.poster-preview img {
+  max-height: 260px;
+  max-width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+#work-form textarea {
+  min-height: 90px;
 }
 dialog::backdrop {
   background: #000b;

@@ -223,6 +223,13 @@ def change_work(data, instance=None):
     instance.color = data.get('color', '#3a4551')
     if not isinstance(instance.color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', instance.color):
         raise ValidationError('Cor inválida.')
+    poster = data.get('poster', '')
+    if not isinstance(poster, str):
+        raise ValidationError('URL da imagem inválida.')
+    poster = poster.strip()
+    if len(poster) > 1000 or (poster and not re.match(r'^https?://', poster)):
+        raise ValidationError('Informe uma URL de imagem http(s) válida, com até 1000 caracteres.')
+    instance.poster = poster
     instance.full_clean()
     instance.save()
     return instance

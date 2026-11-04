@@ -37,6 +37,8 @@ let session = false,
   reviewOrder = "likes",
   listStatus = "Quero ver / ler",
   adminTab = "Denúncias",
+  adminPage = { "Denúncias": 1, Obras: 1, Usuários: 1 },
+  adminPageSize = 10,
   rating = null;
 function save() {}
 function toast(t) {
@@ -339,6 +341,8 @@ function editWork(id) {
     year: new Date().getFullYear(),
     synopsis: "",
     creator: "",
+    cast: "",
+    poster: "",
     color: "#3a4551",
   };
   modal(
@@ -347,8 +351,15 @@ function editWork(id) {
       .map((c) => `<option ${c === w.category ? "selected" : ""}>${c}</option>`)
       .join(
         "",
-      )}</select></label><label>Ano<input name="year" type="number" min="1" max="2100" required value="${w.year}"></label><label>Autoria / direção<input name="creator" required maxlength="200" value="${esc(w.creator)}"></label><label>Sinopse<textarea name="synopsis" required maxlength="3000">${esc(w.synopsis)}</textarea></label><label>Cor da capa<input type="color" name="color" value="${esc(w.color)}"></label><button class="primary full">Salvar obra</button></form>`,
+      )}</select></label><label>Ano<input name="year" type="number" min="1" max="2100" required value="${w.year}"></label><label>Autoria / direção<input name="creator" required maxlength="200" value="${esc(w.creator)}"></label><label>Sinopse<textarea name="synopsis" required maxlength="3000">${esc(w.synopsis)}</textarea></label><label>Elenco / tags <small>(opcional, separados por vírgula)</small><textarea name="cast" maxlength="2000" placeholder="Elenco, desenvolvedores ou tags">${esc(w.cast)}</textarea></label><label>URL da imagem da capa <small>(opcional)</small><input name="poster" type="url" maxlength="1000" placeholder="https://..." value="${esc(w.poster)}"></label><div class="poster-preview" id="poster-preview">${w.poster ? `<img src="${esc(w.poster)}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<small>Não foi possível carregar a imagem.</small>'">` : `<small>Prévia da capa aparece aqui.</small>`}</div><label>Cor da capa<input type="color" name="color" value="${esc(w.color)}"></label><button class="primary full">Salvar obra</button></form>`,
   );
+  const posterInput = $("#work-form").elements.namedItem("poster");
+  posterInput.oninput = () => {
+    const url = posterInput.value.trim();
+    $("#poster-preview").innerHTML = url
+      ? `<img src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<small>Não foi possível carregar a imagem.</small>'">`
+      : "<small>Prévia da capa aparece aqui.</small>";
+  };
 }
 function removeWork(id) {}
 function render(scroll = true) {
