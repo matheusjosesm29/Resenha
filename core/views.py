@@ -445,6 +445,14 @@ def dispatch(request, route, data):
             target.is_active = flag(data, 'active')
             target.save(update_fields=['is_active'])
             return response()
+        if len(parts) == 3 and parts[1] == 'users' and parts[2].isdigit() and method == 'DELETE':
+            target = User.objects.get(pk=parts[2])
+            if target.pk == user.pk:
+                return fail('Você não pode excluir a própria conta por esta tela.', 403)
+            if target.is_staff or target.is_superuser:
+                return fail('Contas administrativas não podem ser excluídas por esta tela.', 403)
+            target.delete()
+            return response()
         if len(parts) == 3 and parts[1] == 'reports' and parts[2].isdigit() and method == 'POST':
             action = data.get('action')
             if action not in ['keep', 'delete', 'block']:

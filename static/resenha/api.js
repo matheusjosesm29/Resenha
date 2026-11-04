@@ -220,9 +220,9 @@ deleteOwn = function (id) {
     }),
   );
 };
-confirmAction = function (title, fn) {
+confirmAction = function (title, fn, message) {
   modal(
-    `<h2>${esc(title)}</h2><p>Confirme para continuar.</p><button class="primary" id="confirm">Confirmar</button>`,
+    `<h2>${esc(title)}</h2><p>${esc(message || "Confirme para continuar.")}</p><button class="primary" id="confirm">Confirmar</button>`,
   );
   $("#confirm").onclick = () => {
     $("#modal").close();
@@ -337,7 +337,7 @@ admin = function () {
       (view.items
         .map(
           (u) =>
-            `<div class="panel row"><span class="avatar">${esc(initials(u.name))}</span><b>${esc(u.name)}</b><span class="muted">${u.staff ? "Administrador" : u.active ? "Ativo" : "Bloqueado"}</span>${u.staff ? "" : `<button style="margin-left:auto" onclick="toggleUser(${u.id},${!u.active})">${u.active ? "Bloquear" : "Desbloquear"}</button>`}</div>`,
+            `<div class="panel row"><span class="avatar">${esc(initials(u.name))}</span><b>${esc(u.name)}</b><span class="muted">${u.staff ? "Administrador" : u.active ? "Ativo" : "Bloqueado"}</span>${u.staff ? "" : `<span style="margin-left:auto;display:flex;gap:8px"><button onclick="toggleUser(${u.id},${!u.active})">${u.active ? "Bloquear" : "Desbloquear"}</button><button class="danger" onclick="deleteUser(${u.id},'${esc(u.name).replace(/'/g, "&#39;")}')">Excluir</button></span>`}</div>`,
         )
         .join("") || '<p class="empty">Nenhum usuário.</p>') +
       pager(view.page, view.totalPages, view.total);
@@ -360,6 +360,19 @@ function toggleUser(id, active) {
       await apiCall("admin/users/" + id, "PATCH", { active });
       await refresh();
     }),
+  );
+}
+function deleteUser(id, name) {
+  confirmAction(
+    `Excluir a conta de ${name || "usuário"}?`,
+    () =>
+      run(async () => {
+        await apiCall("admin/users/" + id, "DELETE");
+        adminPage["Usuários"] = 1;
+        await refresh();
+        toast("Conta excluída.");
+      }),
+    "Esta ação é permanente e remove resenhas, curtidas, listas e denúncias do usuário.",
   );
 }
 moderate = function (id, action) {
