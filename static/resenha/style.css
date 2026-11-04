@@ -559,6 +559,17 @@ label {
   color: #f19068;
   border-color: #e87d51;
 }
+.auth-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+a.primary {
+  display: inline-block;
+  padding: 11px 17px;
+  border-radius: 11px;
+}
 .empty {
   padding: 35px;
   text-align: center;

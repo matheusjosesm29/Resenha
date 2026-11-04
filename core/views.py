@@ -312,6 +312,10 @@ def dispatch(request, route, data):
         return response({'id': target.pk, 'name': display(target), 'bio': target.bio, 'avatar': target.avatar,
                          'favorites': list(target.library.filter(favorite=True).values_list('work_id', flat=True)),
                          'statuses': {str(e.work_id): e.status for e in target.library.exclude(status='')}})
+    # Catálogo e busca públicos: qualquer visitante navega sem conta.
+    # Apenas as ações de escrita (resenhas, curtidas, listas, denúncias) exigem login.
+    if route == 'works' and method == 'GET':
+        return works_list(request)
     if not authenticated(request):
         return fail('Entre na sua conta para continuar.', 401)
     user = request.user
@@ -387,8 +391,6 @@ def dispatch(request, route, data):
                 entry.status = value
             entry.save()
         return response()
-    if route == 'works' and method == 'GET':
-        return works_list(request)
     if route == 'reports' and method == 'POST':
         reason = text(data, 'reason', 30)
         if reason not in dict(Report.REASONS):
