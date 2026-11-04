@@ -297,12 +297,8 @@ admin = function () {
       total: items.length,
     };
   };
-  const pager = (tab, page, totalPages, total) =>
-    total > adminPageSize
-      ? `<div class="pager-row"><button ${page <= 1 ? "disabled" : ""} onclick="adminGoto('${tab}',${page - 1})">← Anterior</button><span>Página ${page} de ${totalPages} · ${total} itens</span><button ${page >= totalPages ? "disabled" : ""} onclick="adminGoto('${tab}',${page + 1})">Próxima →</button></div>`
-      : total
-        ? `<div class="pager-row"><span>${total} itens</span></div>`
-        : "";
+  const pager = (page, totalPages, total) =>
+    total ? `${searchPager(page, totalPages, total)}<div class="pager-total"><span>${total} itens</span></div>` : "";
   $("#app").innerHTML =
     `<div class="toolbar"><h1>Administração</h1><a href="/admin/">Admin Django ↗</a></div><div class="stats">${[
       ["Denúncias pendentes", db.reports.length],
@@ -328,12 +324,12 @@ admin = function () {
           return `<div class="panel"><div class="toolbar"><b>${p.comment ? "Comentário" : "Resenha"} · ${esc(r ? work(r.work)?.title : "Conteúdo denunciado")}</b><span class="danger">${esc(p.reason)}</span></div><p>${esc(p.snapshot)}</p><p class="muted">${esc(p.context)}</p><div class="row"><button onclick="moderate('${p.id}','keep')">Manter conteúdo</button><button class="danger" onclick="moderate('${p.id}','delete')">Excluir conteúdo</button><button class="danger" onclick="moderate('${p.id}','block')">Excluir e bloquear autor</button></div></div>`;
         })
         .join("") || '<p class="empty">Nenhuma denúncia pendente.</p>') +
-      pager("Denúncias", view.page, view.totalPages, view.total);
+      pager(view.page, view.totalPages, view.total);
   } else if (adminTab === "Obras") {
     const view = paginate(db.works, "Obras");
     target.innerHTML =
       `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork('omdb')">Importar do OMDb</button><button onclick="importWork('rawg')">Importar do RAWG</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${view.items.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>` +
-      pager("Obras", view.page, view.totalPages, view.total);
+      pager(view.page, view.totalPages, view.total);
   } else {
     const view = paginate(db.users, "Usuários");
     target.innerHTML =
@@ -344,8 +340,15 @@ admin = function () {
             `<div class="panel row"><span class="avatar">${esc(initials(u.name))}</span><b>${esc(u.name)}</b><span class="muted">${u.staff ? "Administrador" : u.active ? "Ativo" : "Bloqueado"}</span>${u.staff ? "" : `<button style="margin-left:auto" onclick="toggleUser(${u.id},${!u.active})">${u.active ? "Bloquear" : "Desbloquear"}</button>`}</div>`,
         )
         .join("") || '<p class="empty">Nenhum usuário.</p>') +
-      pager("Usuários", view.page, view.totalPages, view.total);
+      pager(view.page, view.totalPages, view.total);
   }
+  // Liga os botões da paginação numerada à aba atual.
+  target.querySelectorAll(".pagination [data-page]").forEach((btn) => {
+    btn.onclick = () => {
+      if (btn.disabled) return;
+      adminGoto(adminTab, Number(btn.dataset.page));
+    };
+  });
 };
 function adminGoto(tab, page) {
   adminPage[tab] = Math.max(1, page);

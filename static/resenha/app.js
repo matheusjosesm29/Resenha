@@ -129,6 +129,36 @@ function scrollRow(btn, dir) {
   row.scrollBy({ left: dir * cardWidth * 3, behavior: "smooth" });
 }
 
+// Gera a lista de páginas exibidas, com reticências quando há muitas.
+function pageNumbers(current, total) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages = new Set([1, total, current, current - 1, current + 1]);
+  const items = [];
+  let prev = 0;
+  for (const n of [...pages].filter((n) => n >= 1 && n <= total).sort((a, b) => a - b)) {
+    if (prev && n - prev > 1) items.push("…");
+    items.push(n);
+    prev = n;
+  }
+  return items;
+}
+
+function searchPager(page, totalPages, total) {
+  if (!total) return "";
+  const nav = (target, label, disabled, active) =>
+    `<button${active ? ' class="active"' : ""}${disabled ? " disabled" : ""} data-page="${target}">${label}</button>`;
+  const nums = pageNumbers(page, totalPages).map((n) =>
+    n === "…"
+      ? '<span class="pager-gap" aria-hidden="true">…</span>'
+      : nav(n, n, false, n === page),
+  );
+  return `<nav class="pagination" aria-label="Paginação">${nav(
+    page - 1,
+    "« Anterior",
+    page <= 1,
+  )}${nums.join("")}${nav(page + 1, "Próxima »", page >= totalPages)}</nav>`;
+}
+
 function catalog() {
   const promises = [
     apiCall("works?" + new URLSearchParams({ page_size: 30, category, order: "score" })),
@@ -223,14 +253,17 @@ function search() {
     };
 
     $("#app").insertAdjacentHTML("beforeend",
-      `<div class="toolbar"><span>${data.total} resultados</span> <span class="pager">${page} / ${data.total_pages}</span></div><div class="grid">${cards(ws)}</div>${data.has_next ? `<button class="primary" id="load-more" style="margin:0 auto;display:block">Carregar mais</button>` : ''}`);
+      `<div class="toolbar"><span>${data.total} resultados</span></div><div class="grid">${cards(ws)}</div>${searchPager(page, data.total_pages, data.total)}`);
 
-    const btn = $("#load-more");
-    if (btn) btn.onclick = () => {
-      const np = new URLSearchParams(location.hash.split("?")[1] || "");
-      np.set("page", page + 1);
-      location.hash = "/busca?" + np.toString();
-    };
+    document.querySelectorAll(".pagination [data-page]").forEach((btn) => {
+      btn.onclick = () => {
+        if (btn.disabled) return;
+        const np = new URLSearchParams(location.hash.split("?")[1] || "");
+        np.set("page", btn.dataset.page);
+        location.hash = "/busca?" + np.toString();
+        window.scrollTo(0, 0);
+      };
+    });
 
     if (recent.length) {
       $("#app").insertAdjacentHTML("beforeend",
