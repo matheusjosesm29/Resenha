@@ -27,6 +27,8 @@ class Work(models.Model):
     rawg_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
     isbn = models.CharField(max_length=20, unique=True, null=True, blank=True)
     ol_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
+    google_books_id = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    comicvine_id = models.CharField(max_length=20, unique=True, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

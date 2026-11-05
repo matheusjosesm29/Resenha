@@ -22,7 +22,11 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import User, Work, Review, Comment, Like, LibraryEntry, Report
-from .services import lookup_omdb, lookup_rawg
+from .services import lookup_book, lookup_comicvine, lookup_omdb, lookup_rawg
+
+# Identificadores externos usados para não importar a mesma obra duas vezes.
+EXTERNAL_IDS = ['imdb_id', 'rawg_id', 'ol_id', 'google_books_id', 'isbn', 'comicvine_id']
+IMPORT_LABELS = {'omdb': 'OMDb', 'rawg': 'RAWG', 'books': 'Open Library/Google Books', 'comicvine': 'Comic Vine'}
 
 
 def response(data=None, status=200):
@@ -51,7 +55,8 @@ def serialize_work(w):
     return {'id': w.pk, 'title': w.title, 'category': w.category, 'year': w.year,
             'synopsis': w.synopsis, 'creator': w.creator, 'cast': w.cast, 'poster': w.poster,
             'color': w.color, 'score': float(w.average or 0), 'count': w.review_count,
-            'imdb_id': w.imdb_id, 'rawg_id': w.rawg_id}
+            'imdb_id': w.imdb_id, 'rawg_id': w.rawg_id, 'ol_id': w.ol_id, 'isbn': w.isbn,
+            'google_books_id': w.google_books_id, 'comicvine_id': w.comicvine_id}
 
 
 def works_list(request):
@@ -228,6 +233,31 @@ def change_work(data, instance=None):
     return instance
 
 
+def lookup_external(source, values):
+    """Consulta uma fonte externa por título ou identificador, sem gravar no banco."""
+    def optional(key, maximum):
+        return text({key: values.get(key) or ''}, key, maximum, required=False)
+
+    if source == 'books':
+        isbn, ol_id = optional('isbn', 20), optional('ol_id', 50)
+        if isbn or ol_id:
+            return lookup_book(isbn=isbn, ol_id=ol_id)
+        title = optional('title', 150)
+        if not title:
+            raise ValidationError('Informe o título ou o ISBN do livro.')
+        return lookup_book(title=title)
+    if source == 'comicvine':
+        comicvine_id = optional('comicvine_id', 20)
+        if comicvine_id:
+            return lookup_comicvine(comicvine_id=comicvine_id)
+        title = optional('title', 150)
+        if not title:
+            raise ValidationError('Informe o título ou o ID do Comic Vine.')
+        return lookup_comicvine(title=title)
+    title = text({'title': values.get('title', '')}, 'title', 150)
+    return lookup_rawg(title=title) if source == 'rawg' else lookup_omdb(title=title)
+
+
 def api(request, route):
     if request.method not in ['GET', 'POST', 'PATCH', 'DELETE']:
         return fail('Método não permitido.', 405)
@@ -307,6 +337,10 @@ def dispatch(request, route, data):
             title = text({'title': request.GET.get('title', '')}, 'title', 150)
             imported = lookup_rawg(title=title)
         return response({'work': imported})
+    if route in ['books', 'comicvine'] and method == 'GET':
+        if not throttle(request, route, 20):
+            return fail('Limite de consultas atingido. Tente novamente depois.', 429)
+        return response({'work': lookup_external(route, request.GET)})
     if len(parts) == 2 and parts[0] == 'profiles' and parts[1].isdigit() and method == 'GET':
         target = User.objects.get(pk=parts[1])
         return response({'id': target.pk, 'name': display(target), 'bio': target.bio, 'avatar': target.avatar,
@@ -408,19 +442,25 @@ def dispatch(request, route, data):
             return response({'id': change_work(data).pk}, 201)
         if route == 'admin/import' and method == 'POST':
             source = data.get('source', 'omdb')
-            if source not in ['omdb', 'rawg']:
+            if source not in IMPORT_LABELS:
                 raise ValidationError('Fonte de importação inválida.')
-            title = text(data, 'title', 150)
-            imported = lookup_rawg(title=title) if source == 'rawg' else lookup_omdb(title=title)
-            id_field = 'rawg_id' if source == 'rawg' else 'imdb_id'
-            if not imported[id_field]:
-                raise ValidationError(f'{source.upper()} não retornou um identificador válido.')
-            instance = Work.objects.filter(**{id_field: imported[id_field]}).first()
-            if not instance:
+            imported = lookup_external(source, data)
+            # Vazio vira NULL: os campos são únicos e '' colidiria entre obras.
+            ids = {field: imported.get(field) or None for field in EXTERNAL_IDS if field in imported}
+            imported.update(ids)
+            ids = {field: value for field, value in ids.items() if value}
+            if not ids:
+                raise ValidationError(f'{IMPORT_LABELS[source]} não retornou um identificador válido.')
+            match = Q()
+            for field, value in ids.items():
+                match |= Q(**{field: value})
+            instance = Work.objects.filter(match).first()
+            created = instance is None
+            if created:
                 instance = Work(**imported)
                 instance.full_clean()
                 instance.save()
-            return response({'id': instance.pk})
+            return response({'id': instance.pk, 'created': created})
         if len(parts) == 3 and parts[1] == 'works' and parts[2].isdigit():
             instance = Work.objects.get(pk=parts[2])
             if method == 'PATCH':
