@@ -1,1 +1,40 @@
-{% load static %}<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Explore e avalie cultura pop."><title>Resenha — Sua opinião em destaque</title><link rel="stylesheet" href="{% static 'resenha/style.css' %}"></head><body><header><a class="brand" href="#/">resenha<span>.</span></a><nav><a href="#/">Catálogo</a><a href="#/busca">Busca</a><a href="#/perfil">Meu perfil</a><a href="#/admin" id="admin-link" hidden>Admin</a></nav><div id="account"></div></header><main id="app"><p>Carregando catálogo…</p></main><footer><span>© 2026 Resenha</span><span>Filmes, séries, animes, mangás, livros e jogos</span></footer><dialog id="modal"><button class="close" aria-label="Fechar">×</button><div id="modal-content"></div></dialog><div id="toast" role="status"></div><script src="{% static 'resenha/app.js' %}?v=2"></script><script src="{% static 'resenha/api.js' %}?v=3"></script></body></html>
+{% load static %}<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Explore e avalie cultura pop.">
+    <title>Resenha — Sua opinião em destaque</title>
+    <link rel="stylesheet" href="{% static 'resenha/style.css' %}">
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="#/">resenha<span>.</span></a>
+      <nav>
+        <a href="#/">Catálogo</a>
+        <a href="#/busca">Busca</a>
+        <a href="#/perfil">Meu perfil</a>
+        <a href="#/admin" id="admin-link" hidden>Admin</a>
+      </nav>
+      <div id="account"></div>
+    </header>
+
+    <main id="app">
+      <p>Carregando catálogo…</p>
+    </main>
+
+    <footer>
+      <span>© 2026 Resenha</span>
+      <span>Filmes, séries, animes, mangás, livros e jogos</span>
+    </footer>
+
+    <dialog id="modal">
+      <button class="close" aria-label="Fechar">×</button>
+      <div id="modal-content"></div>
+    </dialog>
+    <div id="toast" role="status"></div>
+
+    <script src="{% static 'resenha/app.js' %}?v=5"></script>
+    <script src="{% static 'resenha/api.js' %}?v=8"></script>
+  </body>
+</html>

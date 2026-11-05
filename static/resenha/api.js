@@ -220,9 +220,9 @@ deleteOwn = function (id) {
     }),
   );
 };
-confirmAction = function (title, fn) {
+confirmAction = function (title, fn, message) {
   modal(
-    `<h2>${esc(title)}</h2><p>Confirme para continuar.</p><button class="primary" id="confirm">Confirmar</button>`,
+    `<h2>${esc(title)}</h2><p>${esc(message || "Confirme para continuar.")}</p><button class="primary" id="confirm">Confirmar</button>`,
   );
   $("#confirm").onclick = () => {
     $("#modal").close();
@@ -284,6 +284,21 @@ admin = function () {
       '<h1>Acesso restrito</h1><p>Esta área está disponível para administradores.</p><a href="#/">Voltar ao catálogo</a>';
     return;
   }
+  const pageOf = (tab) => adminPage[tab] || 1;
+  const paginate = (items, tab) => {
+    const totalPages = Math.max(1, Math.ceil(items.length / adminPageSize));
+    const page = Math.min(pageOf(tab), totalPages);
+    adminPage[tab] = page;
+    const start = (page - 1) * adminPageSize;
+    return {
+      items: items.slice(start, start + adminPageSize),
+      page,
+      totalPages,
+      total: items.length,
+    };
+  };
+  const pager = (page, totalPages, total) =>
+    total ? `${searchPager(page, totalPages, total)}<div class="pager-total"><span>${total} itens</span></div>` : "";
   $("#app").innerHTML =
     `<div class="toolbar"><h1>Administração</h1><a href="/admin/">Admin Django ↗</a></div><div class="stats">${[
       ["Denúncias pendentes", db.reports.length],
@@ -297,35 +312,67 @@ admin = function () {
       )
       .join(
         "",
-      )}</div><div class="chips admin-tabs">${["Denúncias", "Obras", "Usuários"].map((t) => `<button class="${adminTab === t ? "active" : ""}" onclick="adminTab='${t}';admin()">${t}</button>`).join("")}</div><div id="admin-body"></div>`;
+      )}</div><div class="chips admin-tabs">${["Denúncias", "Obras", "Usuários"].map((t) => `<button class="${adminTab === t ? "active" : ""}" onclick="adminTab='${t}';adminPage['${t}']=1;admin()">${t}</button>`).join("")}</div><div id="admin-body"></div>`;
   const target = $("#admin-body");
-  if (adminTab === "Denúncias")
+  if (adminTab === "Denúncias") {
+    const view = paginate(db.reports, "Denúncias");
     target.innerHTML =
       "<h2>Fila de denúncias</h2>" +
-      (db.reports
+      (view.items
         .map((p) => {
           const r = db.reviews.find((r) => r.id === p.review);
           return `<div class="panel"><div class="toolbar"><b>${p.comment ? "Comentário" : "Resenha"} · ${esc(r ? work(r.work)?.title : "Conteúdo denunciado")}</b><span class="danger">${esc(p.reason)}</span></div><p>${esc(p.snapshot)}</p><p class="muted">${esc(p.context)}</p><div class="row"><button onclick="moderate('${p.id}','keep')">Manter conteúdo</button><button class="danger" onclick="moderate('${p.id}','delete')">Excluir conteúdo</button><button class="danger" onclick="moderate('${p.id}','block')">Excluir e bloquear autor</button></div></div>`;
         })
-        .join("") || '<p class="empty">Nenhuma denúncia pendente.</p>');
-  else if (adminTab === "Obras")
-    target.innerHTML = `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork('omdb')">Importar do OMDb</button><button onclick="importWork('rawg')">Importar do RAWG</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${db.works.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>`;
-  else
+        .join("") || '<p class="empty">Nenhuma denúncia pendente.</p>') +
+      pager(view.page, view.totalPages, view.total);
+  } else if (adminTab === "Obras") {
+    const view = paginate(db.works, "Obras");
+    target.innerHTML =
+      `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork('omdb')">Importar do OMDb</button><button onclick="importWork('rawg')">Importar do RAWG</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${view.items.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>` +
+      pager(view.page, view.totalPages, view.total);
+  } else {
+    const view = paginate(db.users, "Usuários");
     target.innerHTML =
       "<h2>Usuários</h2>" +
-      db.users
+      (view.items
         .map(
           (u) =>
-            `<div class="panel row"><span class="avatar">${esc(initials(u.name))}</span><b>${esc(u.name)}</b><span class="muted">${u.staff ? "Administrador" : u.active ? "Ativo" : "Bloqueado"}</span>${u.staff ? "" : `<button style="margin-left:auto" onclick="toggleUser(${u.id},${!u.active})">${u.active ? "Bloquear" : "Desbloquear"}</button>`}</div>`,
+            `<div class="panel row"><span class="avatar">${esc(initials(u.name))}</span><b>${esc(u.name)}</b><span class="muted">${u.staff ? "Administrador" : u.active ? "Ativo" : "Bloqueado"}</span>${u.staff ? "" : `<span style="margin-left:auto;display:flex;gap:8px"><button onclick="toggleUser(${u.id},${!u.active})">${u.active ? "Bloquear" : "Desbloquear"}</button><button class="danger" onclick="deleteUser(${u.id},'${esc(u.name).replace(/'/g, "&#39;")}')">Excluir</button></span>`}</div>`,
         )
-        .join("");
+        .join("") || '<p class="empty">Nenhum usuário.</p>') +
+      pager(view.page, view.totalPages, view.total);
+  }
+  // Liga os botões da paginação numerada à aba atual.
+  target.querySelectorAll(".pagination [data-page]").forEach((btn) => {
+    btn.onclick = () => {
+      if (btn.disabled) return;
+      adminGoto(adminTab, Number(btn.dataset.page));
+    };
+  });
 };
+function adminGoto(tab, page) {
+  adminPage[tab] = Math.max(1, page);
+  admin();
+}
 function toggleUser(id, active) {
   confirmAction(active ? "Desbloquear conta?" : "Bloquear conta?", () =>
     run(async () => {
       await apiCall("admin/users/" + id, "PATCH", { active });
       await refresh();
     }),
+  );
+}
+function deleteUser(id, name) {
+  confirmAction(
+    `Excluir a conta de ${name || "usuário"}?`,
+    () =>
+      run(async () => {
+        await apiCall("admin/users/" + id, "DELETE");
+        adminPage["Usuários"] = 1;
+        await refresh();
+        toast("Conta excluída.");
+      }),
+    "Esta ação é permanente e remove resenhas, curtidas, listas e denúncias do usuário.",
   );
 }
 moderate = function (id, action) {
@@ -349,8 +396,9 @@ editWork = function (id) {
         year: Number(f.year.value),
         creator: f.creator.value,
         synopsis: f.synopsis.value,
+        cast: f.elements.namedItem("cast").value,
+        poster: f.elements.namedItem("poster").value.trim(),
         color: f.color.value,
-        cast: work(id)?.cast || "",
       };
     run(async () => {
       await apiCall(

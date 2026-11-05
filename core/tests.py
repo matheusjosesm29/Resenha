@@ -67,6 +67,16 @@ class ApiTests(TestCase):
         self.assertEqual(self.send('register', {'email': 'invalid', 'name': 'X', 'password': '123'}).status_code, 400)
         self.assertEqual(self.send('register', {'email': self.user.email.upper(), 'name': 'X', 'password': 'Strong123!Words'}).status_code, 409)
 
+    def test_anonymous_can_browse_catalog_and_search(self):
+        Work.objects.create(title='Another', category='Jogos', year=2024, synopsis='S', creator='C')
+        catalog = self.client.get('/api/works', {'page_size': 10})
+        self.assertEqual(catalog.status_code, 200)
+        self.assertEqual(catalog.json()['total'], 2)
+        search = self.client.get('/api/works', {'query': 'Obra', 'category': 'Livros', 'order': 'trending'})
+        self.assertEqual(search.status_code, 200)
+        self.assertEqual(search.json()['total'], 1)
+        self.assertEqual(search.json()['works'][0]['title'], 'Obra')
+
     def test_anonymous_cannot_write(self):
         self.assertEqual(self.send('reviews', {'work': self.work.pk, 'score': 7, 'text': 'x'}).status_code, 401)
 

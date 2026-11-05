@@ -559,6 +559,52 @@ label {
   color: #f19068;
   border-color: #e87d51;
 }
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 10px;
+}
+.pagination button {
+  min-width: 44px;
+  padding: 10px 14px;
+  text-align: center;
+}
+.pagination button.active {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #101113;
+  font-weight: 700;
+}
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.pager-gap {
+  min-width: 20px;
+  text-align: center;
+  color: var(--muted);
+  user-select: none;
+}
+.pager-total {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 4px 0 8px;
+}
+.auth-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+a.primary {
+  display: inline-block;
+  padding: 11px 17px;
+  border-radius: 11px;
+}
 .empty {
   padding: 35px;
   text-align: center;
@@ -584,11 +630,33 @@ th {
 dialog {
   border: 1px solid #454752;
   border-radius: 18px;
-  padding: 32px;
+  padding: 32px 36px 36px;
   background: var(--panel);
   color: var(--text);
-  max-width: 530px;
+  max-width: 720px;
   width: calc(100% - 30px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.poster-preview {
+  margin-top: 10px;
+  border: 1px dashed #51525b;
+  border-radius: 11px;
+  padding: 12px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.poster-preview img {
+  max-height: 260px;
+  max-width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+#work-form textarea {
+  min-height: 90px;
 }
 dialog::backdrop {
   background: #000b;
