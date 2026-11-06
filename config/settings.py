@@ -79,6 +79,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Resenha <nao-responda@localhost>')
 OMDB_API_KEY = os.getenv('OMDB_API_KEY', '')
 RAWG_API_KEY = os.getenv('RAWG_API_KEY', '')
+# Livros usam o Open Library sem chave; o Google Books é reserva opcional.
+GOOGLE_BOOKS_API_KEY = os.getenv('GOOGLE_BOOKS_API_KEY', '')
+COMICVINE_API_KEY = os.getenv('COMICVINE_API_KEY', '')
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG

@@ -328,7 +328,7 @@ admin = function () {
   } else if (adminTab === "Obras") {
     const view = paginate(db.works, "Obras");
     target.innerHTML =
-      `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork('omdb')">Importar do OMDb</button><button onclick="importWork('rawg')">Importar do RAWG</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${view.items.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>` +
+      `<div class="toolbar"><h2>Catálogo</h2><div class="row"><button onclick="importWork('omdb')">Importar do OMDb</button><button onclick="importWork('rawg')">Importar do RAWG</button><button onclick="importWork('books')">Importar livro</button><button onclick="importWork('comicvine')">Importar do Comic Vine</button><button class="primary" onclick="editWork()">+ Cadastrar obra</button></div></div><div class="table-wrap"><table><thead><tr><th>Título</th><th>Categoria</th><th>Ano</th><th>Ações</th></tr></thead><tbody>${view.items.map((w) => `<tr><td>${esc(w.title)}</td><td>${esc(w.category)}</td><td>${w.year}</td><td><button onclick="editWork(${w.id})">Editar</button> <button class="danger" onclick="removeWork(${w.id})">Excluir</button></td></tr>`).join("")}</tbody></table></div>` +
       pager(view.page, view.totalPages, view.total);
   } else {
     const view = paginate(db.users, "Usuários");
@@ -419,19 +419,45 @@ removeWork = function (id) {
     }),
   );
 };
+const IMPORT_SOURCES = {
+  omdb: { heading: "Importar do OMDb", provider: "OMDb" },
+  rawg: { heading: "Importar do RAWG", provider: "RAWG" },
+  // Livros: Open Library, com Google Books como reserva no servidor.
+  books: {
+    heading: "Importar livro",
+    provider: "Open Library",
+    id: { name: "isbn", label: "ou ISBN", max: 20, placeholder: "978..." },
+    hint: "Busca no Open Library. O ISBN encontra uma edição específica.",
+  },
+  comicvine: {
+    heading: "Importar do Comic Vine",
+    provider: "Comic Vine",
+    id: { name: "comicvine_id", label: "ou ID do Comic Vine", max: 20, placeholder: "4050-3092" },
+    hint: "Importa a série ou o encadernado. O ID aparece no endereço da página do Comic Vine.",
+  },
+};
 function importWork(source = "omdb") {
-  const provider = source === "rawg" ? "RAWG" : "OMDb";
+  const config = IMPORT_SOURCES[source] || IMPORT_SOURCES.omdb;
+  const idField = config.id
+    ? `<label>${config.id.label}<input name="${config.id.name}" maxlength="${config.id.max}" placeholder="${config.id.placeholder}"></label>`
+    : "";
   modal(
-    `<h2>Importar do ${provider}</h2><form id="import-form"><label>Título<input name="title" required maxlength="150"></label><button class="primary full">Buscar e importar</button></form>`,
+    `<h2>${config.heading}</h2><form id="import-form"><label>Título<input name="title" ${config.id ? "" : "required"} maxlength="150"></label>${idField}${config.hint ? `<p class="muted">${config.hint}</p>` : ""}<button class="primary full">Buscar e importar</button></form>`,
   );
   $("#import-form").onsubmit = (e) => {
     e.preventDefault();
-    const title = e.target.elements.namedItem("title").value;
+    const fields = e.target.elements;
+    const payload = { source, title: fields.namedItem("title").value.trim() };
+    if (config.id) payload[config.id.name] = fields.namedItem(config.id.name).value.trim();
+    if (!payload.title && !(config.id && payload[config.id.name])) {
+      toast(`Informe o título ${config.id.label}.`);
+      return;
+    }
     run(async () => {
-      await apiCall("admin/import", "POST", { title, source });
+      const result = await apiCall("admin/import", "POST", payload);
       $("#modal").close();
       await refresh();
-      toast(`Obra importada via ${provider}.`);
+      toast(result.created === false ? "Esta obra já estava no catálogo." : `Obra importada via ${config.provider}.`);
     });
   };
 }

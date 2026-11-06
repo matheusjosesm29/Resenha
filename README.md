@@ -39,7 +39,7 @@ Para validar sem gravar, use `python import_rawg_1999.py --dry-run`. `--count` l
 if [ ! -f .env ]; then cp .env.example .env; fi
 ```
 
-Edite `.env` sem substituir valores que já existam e defina `POSTGRES_PASSWORD` (obrigatório pelo Compose); substitua também os valores de exemplo de `DJANGO_SECRET_KEY` e `POSTGRES_PASSWORD` se o arquivo foi criado agora. Para gerar valores seguros, use `python -c 'import secrets; print(secrets.token_urlsafe(64))'`. Preencha `OMDB_API_KEY` e `RAWG_API_KEY` se for importar obras dessas fontes.
+Edite `.env` sem substituir valores que já existam e defina `POSTGRES_PASSWORD` (obrigatório pelo Compose); substitua também os valores de exemplo de `DJANGO_SECRET_KEY` e `POSTGRES_PASSWORD` se o arquivo foi criado agora. Para gerar valores seguros, use `python -c 'import secrets; print(secrets.token_urlsafe(64))'`. Preencha `OMDB_API_KEY`, `RAWG_API_KEY`, `COMICVINE_API_KEY` e, opcionalmente, `GOOGLE_BOOKS_API_KEY` se for importar obras dessas fontes. Livros funcionam sem chave, pelo Open Library.
 
 ```bash
 docker compose up --build -d
@@ -61,7 +61,7 @@ Para atualizar a aplicação após alterações no código ou nos arquivos está
 - Curtidas únicas, sem curtir a própria resenha; respostas e exclusão de comentários próprios.
 - Favoritos e status de consumo por usuário; listas privadas e favoritos públicos no perfil.
 - Denúncias de resenhas e comentários; fila e decisões registradas; moderação e bloqueio de contas por administradores.
-- Cadastro, edição e exclusão de obras; importação de filmes e séries do OMDb e jogos do RAWG por administrador.
+- Cadastro, edição e exclusão de obras; importação por administrador de filmes e séries do OMDb, jogos do RAWG, livros do Open Library (com Google Books como reserva) e quadrinhos do Comic Vine.
 - Admin nativo do Django em `/admin/`.
 
 A ocultação de spoiler é um recurso visual; o texto é público e está na resposta da API, como qualquer resenha pública.
@@ -81,6 +81,24 @@ No Docker, preencha `.env` e recrie o serviço `web`. O painel permite importar 
 
 Configure `RAWG_API_KEY` no `.env` do servidor (ou como variável de ambiente); não coloque a chave no JavaScript nem a versione no Git. No painel de administração, use **Importar do RAWG** e informe o título do jogo. A integração pesquisa o jogo, consulta seus detalhes e grava título, ano, descrição, desenvolvedores, tags, imagem e identificador RAWG no catálogo. `GET /api/rawg?title=...` permite consultar sem gravar, e `GET /api/rawg?rawg_id=...` consulta pelo identificador. O endpoint usa HTTPS, timeout de 5 segundos e limite de consultas; os jogos importados são renderizados pelo mesmo catálogo local das demais obras. Jogos sem ano de lançamento válido não são importados, pois o catálogo exige esse dado. Jogos explicitamente identificados como pornográficos/NSFW (tags como `NSFW`, `hentai`, `eroge` ou `erotic`, classificação `Adults Only` e termos inequívocos no título/descrição) são recusados na importação administrativa, na consulta RAWG e no importador em lote. Classificação `Mature`, nudez isolada ou violência não são suficientes para recusar títulos como *Cyberpunk 2077* e *The Witcher 3*.
 
+## Livros: Open Library e Google Books
+
+No painel, **Importar livro** aceita título ou ISBN. A busca usa o [Open Library](https://openlibrary.org/developers/api), que não exige chave: a obra recebe o ano da primeira publicação (e não o da edição), a sinopse da obra, os autores, a capa e o identificador `ol_id`. Edições em português são preferidas para título e capa; por exemplo, "Cem anos de solidão" é gravado com o título brasileiro, e não "Cien años de soledad". Quando há várias obras com o mesmo título, vence a que tem mais edições, porque o Open Library tem muitas duplicatas de uma só edição.
+
+O Google Books é uma reserva opcional: com `GOOGLE_BOOKS_API_KEY` configurada, ele é consultado quando o Open Library não encontra o livro, não tem sinopse ou está fora do ar. Sem chave, o Google Books não é consultado, porque a cota anônima da API é zero (responde 429). A chave é gratuita no Google Cloud Console, ativando a *Books API*. Livros que o Google Books classifica como `MATURE` (conteúdo sexual explícito) são recusados.
+
+Livros sem sinopse em nenhuma das fontes não são importados; cadastre-os manualmente. A sinopse vem no idioma em que está cadastrada na fonte, então algumas aparecem em inglês, espanhol ou francês e podem ser editadas no painel.
+
+`GET /api/books?title=...`, `?isbn=...` ou `?ol_id=OL1003040W` consulta sem gravar.
+
+## Quadrinhos: Comic Vine
+
+Crie uma conta no [Comic Vine](https://comicvine.gamespot.com/api/) e defina `COMICVINE_API_KEY` no `.env`. No painel, **Importar do Comic Vine** aceita título ou o ID do volume, que aparece no endereço da página (`4050-3092` ou só `3092`). A integração importa volumes, isto é, a série ou o encadernado, e não edições avulsas: título, ano de início, sinopse, criadores mais frequentes, personagens principais (exibidos em "Elenco") e capa. Quando há vários volumes com o mesmo nome, vence o que tem mais edições, para escolher a série original em vez de reimpressões.
+
+O Comic Vine tem conteúdo em inglês e limita cada chave a 200 consultas por hora por recurso. O uso gratuito é não comercial e pede crédito à fonte. `GET /api/comicvine?title=...` ou `?comicvine_id=...` consulta sem gravar.
+
+Todas as fontes de livros e quadrinhos usam HTTPS, timeout de 5 segundos, User-Agent identificado e o mesmo limite de consultas por IP das demais. Uma obra já importada não é duplicada: a importação procura qualquer identificador externo igual (`ol_id`, `isbn`, `google_books_id`, `comicvine_id`) e responde `created: false`.
+
 ## Recuperar senha
 
 Em desenvolvimento, o link é escrito no terminal do servidor. Não há envio real de e-mail por padrão. Para SMTP, configure `EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` e `DEFAULT_FROM_EMAIL`. Links usam tokens nativos do Django e deixam de funcionar após a troca de senha. A resposta pública não informa se o e-mail está cadastrado.
@@ -94,7 +112,7 @@ python manage.py test core
 python manage.py check
 ```
 
-Testes automatizados cobrem CSRF, autenticação, hash de senha, notas inválidas e médias, unicidade, autorização, curtidas, comentários, isolamento das listas, moderação, bloqueios, recuperação de senha e importação/falhas simuladas do OMDb e do RAWG.
+Testes automatizados cobrem CSRF, autenticação, hash de senha, notas inválidas e médias, unicidade, autorização, curtidas, comentários, isolamento das listas, moderação, bloqueios, recuperação de senha e importação/falhas simuladas do OMDb, do RAWG, do Open Library, do Google Books e do Comic Vine (`core/test_books_comics.py`).
 
 Os testes foram executados com SQLite. Docker/PostgreSQL e o envio por SMTP precisam de validação no ambiente do grupo; OMDb e RAWG foram testados com mocks, sem chaves reais. A conferência visual desta versão integrada não foi concluída porque o ambiente de preview não dispõe do interpretador Python instalado para esta aplicação.
 
@@ -103,7 +121,7 @@ Os testes foram executados com SQLite. Docker/PostgreSQL e o envio por SMTP prec
 - `config/`: configurações, URLs e entrada WSGI.
 - `core/models.py`: entidades e restrições de integridade.
 - `core/views.py`: API, validação e autorização.
-- `core/services.py`: consultas ao OMDb e RAWG.
+- `core/services.py`: consultas ao OMDb, RAWG, Open Library, Google Books e Comic Vine.
 - `core/migrations/`: esquema versionado do banco.
 - `core/tests.py`: testes de integração.
 - `templates/`: estrutura da interface e recuperação de senha.
@@ -130,7 +148,9 @@ Todas as alterações exigem CSRF. Campos JSON são validados no servidor; a aut
 | PATCH | `/api/library/<work_id>` | Própria lista |
 | POST | `/api/reports` | Usuário autenticado |
 | GET | `/api/omdb?title=...` | Consulta pública |
-| POST | `/api/admin/import` | Administrador (`source`: `omdb` ou `rawg`; omissão mantém OMDb) |
+| GET | `/api/books?title=...` / `isbn` / `ol_id` | Consulta pública |
+| GET | `/api/comicvine?title=...` / `comicvine_id` | Consulta pública |
+| POST | `/api/admin/import` | Administrador (`source`: `omdb`, `rawg`, `books` ou `comicvine`; omissão mantém OMDb). `books` aceita `title` ou `isbn`; `comicvine` aceita `title` ou `comicvine_id` |
 | POST | `/api/admin/works` | Administrador |
 | PATCH, DELETE | `/api/admin/works/<id>` | Administrador |
 | PATCH | `/api/admin/users/<id>` | Administrador |
