@@ -228,6 +228,13 @@ def change_work(data, instance=None):
     instance.color = data.get('color', '#3a4551')
     if not isinstance(instance.color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', instance.color):
         raise ValidationError('Cor inválida.')
+    poster = data.get('poster', '')
+    if not isinstance(poster, str):
+        raise ValidationError('URL da imagem inválida.')
+    poster = poster.strip()
+    if len(poster) > 1000 or (poster and not re.match(r'^https?://', poster)):
+        raise ValidationError('Informe uma URL de imagem http(s) válida, com até 1000 caracteres.')
+    instance.poster = poster
     instance.full_clean()
     instance.save()
     return instance
@@ -346,6 +353,10 @@ def dispatch(request, route, data):
         return response({'id': target.pk, 'name': display(target), 'bio': target.bio, 'avatar': target.avatar,
                          'favorites': list(target.library.filter(favorite=True).values_list('work_id', flat=True)),
                          'statuses': {str(e.work_id): e.status for e in target.library.exclude(status='')}})
+    # Catálogo e busca públicos: qualquer visitante navega sem conta.
+    # Apenas as ações de escrita (resenhas, curtidas, listas, denúncias) exigem login.
+    if route == 'works' and method == 'GET':
+        return works_list(request)
     if not authenticated(request):
         return fail('Entre na sua conta para continuar.', 401)
     user = request.user
@@ -421,8 +432,6 @@ def dispatch(request, route, data):
                 entry.status = value
             entry.save()
         return response()
-    if route == 'works' and method == 'GET':
-        return works_list(request)
     if route == 'reports' and method == 'POST':
         reason = text(data, 'reason', 30)
         if reason not in dict(Report.REASONS):
@@ -475,6 +484,14 @@ def dispatch(request, route, data):
                 return fail('Contas administrativas não podem ser bloqueadas por esta tela.', 403)
             target.is_active = flag(data, 'active')
             target.save(update_fields=['is_active'])
+            return response()
+        if len(parts) == 3 and parts[1] == 'users' and parts[2].isdigit() and method == 'DELETE':
+            target = User.objects.get(pk=parts[2])
+            if target.pk == user.pk:
+                return fail('Você não pode excluir a própria conta por esta tela.', 403)
+            if target.is_staff or target.is_superuser:
+                return fail('Contas administrativas não podem ser excluídas por esta tela.', 403)
+            target.delete()
             return response()
         if len(parts) == 3 and parts[1] == 'reports' and parts[2].isdigit() and method == 'POST':
             action = data.get('action')

@@ -37,6 +37,8 @@ let session = false,
   reviewOrder = "likes",
   listStatus = "Quero ver / ler",
   adminTab = "Denúncias",
+  adminPage = { "Denúncias": 1, Obras: 1, Usuários: 1 },
+  adminPageSize = 10,
   rating = null;
 function save() {}
 function toast(t) {
@@ -125,6 +127,36 @@ function scrollRow(btn, dir) {
   if (!card) return;
   const cardWidth = card.offsetWidth + 14; // card + gap
   row.scrollBy({ left: dir * cardWidth * 3, behavior: "smooth" });
+}
+
+// Gera a lista de páginas exibidas, com reticências quando há muitas.
+function pageNumbers(current, total) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages = new Set([1, total, current, current - 1, current + 1]);
+  const items = [];
+  let prev = 0;
+  for (const n of [...pages].filter((n) => n >= 1 && n <= total).sort((a, b) => a - b)) {
+    if (prev && n - prev > 1) items.push("…");
+    items.push(n);
+    prev = n;
+  }
+  return items;
+}
+
+function searchPager(page, totalPages, total) {
+  if (!total) return "";
+  const nav = (target, label, disabled, active) =>
+    `<button${active ? ' class="active"' : ""}${disabled ? " disabled" : ""} data-page="${target}">${label}</button>`;
+  const nums = pageNumbers(page, totalPages).map((n) =>
+    n === "…"
+      ? '<span class="pager-gap" aria-hidden="true">…</span>'
+      : nav(n, n, false, n === page),
+  );
+  return `<nav class="pagination" aria-label="Paginação">${nav(
+    page - 1,
+    "« Anterior",
+    page <= 1,
+  )}${nums.join("")}${nav(page + 1, "Próxima »", page >= totalPages)}</nav>`;
 }
 
 function catalog() {
@@ -221,14 +253,17 @@ function search() {
     };
 
     $("#app").insertAdjacentHTML("beforeend",
-      `<div class="toolbar"><span>${data.total} resultados</span> <span class="pager">${page} / ${data.total_pages}</span></div><div class="grid">${cards(ws)}</div>${data.has_next ? `<button class="primary" id="load-more" style="margin:0 auto;display:block">Carregar mais</button>` : ''}`);
+      `<div class="toolbar"><span>${data.total} resultados</span></div><div class="grid">${cards(ws)}</div>${searchPager(page, data.total_pages, data.total)}`);
 
-    const btn = $("#load-more");
-    if (btn) btn.onclick = () => {
-      const np = new URLSearchParams(location.hash.split("?")[1] || "");
-      np.set("page", page + 1);
-      location.hash = "/busca?" + np.toString();
-    };
+    document.querySelectorAll(".pagination [data-page]").forEach((btn) => {
+      btn.onclick = () => {
+        if (btn.disabled) return;
+        const np = new URLSearchParams(location.hash.split("?")[1] || "");
+        np.set("page", btn.dataset.page);
+        location.hash = "/busca?" + np.toString();
+        window.scrollTo(0, 0);
+      };
+    });
 
     if (recent.length) {
       $("#app").insertAdjacentHTML("beforeend",
@@ -262,7 +297,7 @@ function detail(id) {
       )
       .join(
         "",
-      )}<small>Distribuição das avaliações</small></div></div><label>Seu status</label><div class="row">${statusNames.map((s) => `<button class="${db.statuses[w.id] === s ? "active" : ""}" onclick="setStatus(${w.id},'${s}')">${s}</button>`).join("")}<button class="${db.favorites.includes(w.id) ? "active" : ""}" onclick="favorite(${w.id})">♡ ${db.favorites.includes(w.id) ? "Favorito" : "Favoritar"}</button></div><div class="row" style="margin-top:18px"><small>Compartilhar</small><button onclick="share(${w.id})">Copiar link</button><a class="text-button" href="https://wa.me/?text=${encodeURIComponent(w.title + " " + location.href)}" target="_blank" rel="noopener">WhatsApp ↗</a><a class="text-button" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(w.title)}&url=${encodeURIComponent(location.href)}" target="_blank" rel="noopener">X / Twitter ↗</a></div></div></section>${ownReview ? `<section class="panel" style="margin-top:18px"><h2>Sua resenha</h2><div class="review-head"><span class="score">${num(ownReview.score)}</span></div><p>${esc(ownReview.text)}${ownReview.spoiler ? ' <span class="muted">(contém spoilers)</span>' : ''}</p><div class="review-actions"><button onclick="editReview('${ownReview.id}')">Editar</button><button class="text-button" onclick="deleteOwn('${ownReview.id}')">Excluir</button></div></section>` : `<form class="panel" id="review-form"><h2>Sua resenha</h2>${session ? "" : '<p class="muted">Entre para publicar sua avaliação.</p>'}<label>Nota (0 a 10)</label><div class="row ratings">${Array.from({ length: 11 }, (_, n) => `<button type="button" data-rating="${n}" class="${rating === n ? "active" : ""}">${n}</button>`).join("")}</div><label for="review-text">Escreva o que achou</label><textarea id="review-text" required maxlength="5000" placeholder="O que funcionou, o que não funcionou, para quem você recomenda..."></textarea><div class="form-footer"><label class="check"><input type="checkbox" id="has-spoiler">Contém spoilers</label><button class="primary">Publicar resenha</button></div></form>`}<div class="toolbar"><h2>Resenhas (${rs.length})</h2><select class="sort" id="review-order" aria-label="Ordenar resenhas"><option value="likes">Mais relevantes</option><option value="date">Mais recentes</option></select></div>${rs.map((r) => review(r)).join("") || '<p class="empty">Seja a primeira pessoa a avaliar esta obra.</p>'}`;
+      )}<small>Distribuição das avaliações</small></div></div><label>Seu status</label><div class="row">${statusNames.map((s) => `<button class="${db.statuses[w.id] === s ? "active" : ""}" onclick="setStatus(${w.id},'${s}')">${s}</button>`).join("")}<button class="${db.favorites.includes(w.id) ? "active" : ""}" onclick="favorite(${w.id})">♡ ${db.favorites.includes(w.id) ? "Favorito" : "Favoritar"}</button></div><div class="row" style="margin-top:18px"><small>Compartilhar</small><button onclick="share(${w.id})">Copiar link</button><a class="text-button" href="https://wa.me/?text=${encodeURIComponent(w.title + " " + location.href)}" target="_blank" rel="noopener">WhatsApp ↗</a><a class="text-button" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(w.title)}&url=${encodeURIComponent(location.href)}" target="_blank" rel="noopener">X / Twitter ↗</a></div></div></section>${ownReview ? `<section class="panel" style="margin-top:18px"><h2>Sua resenha</h2><div class="review-head"><span class="score">${num(ownReview.score)}</span></div><p>${esc(ownReview.text)}${ownReview.spoiler ? ' <span class="muted">(contém spoilers)</span>' : ''}</p><div class="review-actions"><button onclick="editReview('${ownReview.id}')">Editar</button><button class="text-button" onclick="deleteOwn('${ownReview.id}')">Excluir</button></div></section>` : `<form class="panel" id="review-form"><h2>Sua resenha</h2>${session ? "" : '<section class="auth-cta"><p class="muted">Entre na sua conta para avaliar e escrever uma resenha.</p><div class="row"><a class="primary" href="#/entrar">Entrar</a><a class="text-button" href="#/cadastro">Criar conta</a></div></section>'}<fieldset${session ? "" : " disabled hidden"}><label>Nota (0 a 10)</label><div class="row ratings">${Array.from({ length: 11 }, (_, n) => `<button type="button" data-rating="${n}" class="${rating === n ? "active" : ""}">${n}</button>`).join("")}</div><label for="review-text">Escreva o que achou</label><textarea id="review-text" required maxlength="5000" placeholder="O que funcionou, o que não funcionou, para quem você recomenda..."></textarea><div class="form-footer"><label class="check"><input type="checkbox" id="has-spoiler">Contém spoilers</label><button class="primary">Publicar resenha</button></div></fieldset></form>`}<div class="toolbar"><h2>Resenhas (${rs.length})</h2><select class="sort" id="review-order" aria-label="Ordenar resenhas"><option value="likes">Mais relevantes</option><option value="date">Mais recentes</option></select></div>${rs.map((r) => review(r)).join("") || '<p class="empty">Seja a primeira pessoa a avaliar esta obra.</p>'}`;
   document.querySelectorAll("[data-rating]").forEach(
     (b) =>
       (b.onclick = () => {
@@ -308,7 +343,11 @@ function deleteOwn(id) {}
 function confirmAction(title, fn) {}
 function profile(name) {
   const mine = !name;
-  if (mine && !guard()) return;
+  if (mine && !session) {
+    toast("Entre na sua conta para acessar seu perfil.");
+    location.hash = "/entrar";
+    return;
+  }
   const pname = mine ? db.profile.name : decodeURIComponent(name),
     rs = db.reviews.filter((r) => (mine ? r.own : r.name === pname));
   $("#app").innerHTML =
@@ -335,6 +374,8 @@ function editWork(id) {
     year: new Date().getFullYear(),
     synopsis: "",
     creator: "",
+    cast: "",
+    poster: "",
     color: "#3a4551",
   };
   modal(
@@ -343,8 +384,15 @@ function editWork(id) {
       .map((c) => `<option ${c === w.category ? "selected" : ""}>${c}</option>`)
       .join(
         "",
-      )}</select></label><label>Ano<input name="year" type="number" min="1" max="2100" required value="${w.year}"></label><label>Autoria / direção<input name="creator" required maxlength="200" value="${esc(w.creator)}"></label><label>Sinopse<textarea name="synopsis" required maxlength="3000">${esc(w.synopsis)}</textarea></label><label>Cor da capa<input type="color" name="color" value="${esc(w.color)}"></label><button class="primary full">Salvar obra</button></form>`,
+      )}</select></label><label>Ano<input name="year" type="number" min="1" max="2100" required value="${w.year}"></label><label>Autoria / direção<input name="creator" required maxlength="200" value="${esc(w.creator)}"></label><label>Sinopse<textarea name="synopsis" required maxlength="3000">${esc(w.synopsis)}</textarea></label><label>Elenco / tags <small>(opcional, separados por vírgula)</small><textarea name="cast" maxlength="2000" placeholder="Elenco, desenvolvedores ou tags">${esc(w.cast)}</textarea></label><label>URL da imagem da capa <small>(opcional)</small><input name="poster" type="url" maxlength="1000" placeholder="https://..." value="${esc(w.poster)}"></label><div class="poster-preview" id="poster-preview">${w.poster ? `<img src="${esc(w.poster)}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<small>Não foi possível carregar a imagem.</small>'">` : `<small>Prévia da capa aparece aqui.</small>`}</div><label>Cor da capa<input type="color" name="color" value="${esc(w.color)}"></label><button class="primary full">Salvar obra</button></form>`,
   );
+  const posterInput = $("#work-form").elements.namedItem("poster");
+  posterInput.oninput = () => {
+    const url = posterInput.value.trim();
+    $("#poster-preview").innerHTML = url
+      ? `<img src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<small>Não foi possível carregar a imagem.</small>'">`
+      : "<small>Prévia da capa aparece aqui.</small>";
+  };
 }
 function removeWork(id) {}
 function render(scroll = true) {
