@@ -21,6 +21,7 @@ class Work(models.Model):
     synopsis = models.TextField(max_length=3000)
     creator = models.CharField(max_length=200)
     cast = models.TextField(blank=True, max_length=2000)
+    tags = models.TextField(blank=True, max_length=2000)
     color = models.CharField(max_length=7, default='#3a4551')
     poster = models.URLField(blank=True, max_length=1000)
     imdb_id = models.CharField(max_length=20, unique=True, null=True, blank=True)

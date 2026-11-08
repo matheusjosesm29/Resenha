@@ -77,7 +77,8 @@ def lookup_omdb(title='', imdb_id=''):
     return {
         'title': value('Title', 150), 'category': 'Séries' if data['Type'] == 'series' else 'Filmes',
         'year': year, 'synopsis': value('Plot', 3000), 'creator': value('Director', 200) or value('Writer', 200),
-        'cast': value('Actors', 2000), 'poster': value('Poster', 1000),
+
+        'cast': value('Actors', 2000), 'tags': '', 'poster': value('Poster', 1000),
         'imdb_id': value('imdbID', 20),
     }
 
@@ -156,7 +157,8 @@ def lookup_rawg(title='', rawg_id=''):
         'year': year,
         'synopsis': synopsis[:3000],
         'creator': ', '.join(developer_names)[:200] or 'Desenvolvedor não informado',
-        'cast': ', '.join(tag_names[:5])[:2000],
+        'cast': '',
+        'tags': ', '.join(tag_names[:5])[:2000],
         'poster': value('background_image', '')[:1000],
         'rawg_id': game_id[:50],
     }
@@ -338,6 +340,7 @@ def lookup_open_library(title='', isbn='', ol_id=''):
         'synopsis': clip(synopsis, 3000),
         'creator': clip(', '.join(authors[:3]), 200) or 'Autoria não informada',
         'cast': '',
+        'tags': '',
         'poster': f'https://covers.openlibrary.org/b/id/{int(cover_id)}-L.jpg' if str(cover_id or '').isdigit() else '',
         'ol_id': work_id[:50],
         'isbn': isbn_value[:20] or None,
@@ -391,6 +394,7 @@ def lookup_google_books(title='', isbn=''):
         'synopsis': clip(synopsis, 3000),
         'creator': clip(', '.join(authors[:3]), 200) or 'Autoria não informada',
         'cast': '',
+        'tags': '',
         'poster': poster[:1000],
         'google_books_id': str(item['id'])[:20],
         'isbn': (isbn or identifiers.get('ISBN_13') or identifiers.get('ISBN_10') or '')[:20] or None,
@@ -487,7 +491,8 @@ def lookup_comicvine(title='', comicvine_id=''):
         'year': year,
         'synopsis': clip(synopsis, 3000),
         'creator': clip(', '.join(creators), 200) or (publisher.get('name') or 'Autoria não informada')[:200],
-        'cast': clip(', '.join(names(volume.get('character_credits'), 5, sort_by_count=True)), 2000),
+        'cast': '',
+        'tags': clip(', '.join(names(volume.get('character_credits'), 5, sort_by_count=True)), 2000),
         'poster': poster[:1000],
         'comicvine_id': str(volume['id'])[:20],
     }

@@ -275,9 +275,78 @@ label {
   right: -52px;
 }
 
+/* Listas horizontais do perfil: linha única com rolagem, sem limite de itens */
+.profile-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 6px 2px 18px;
+  margin: 12px 0 22px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.profile-row::-webkit-scrollbar {
+  height: 8px;
+}
+.profile-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+.profile-row::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 4px;
+}
+.profile-row::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+.profile-row > article {
+  flex: 0 0 168px;
+  scroll-snap-align: start;
+}
+.profile-row > .empty {
+  flex: 1 1 auto;
+}
+.profile-row > .list-item {
+  flex: 0 0 340px;
+  margin-bottom: 0;
+}
+.profile-row .cover {
+  aspect-ratio: 2/3;
+  padding: 0;
+}
+.profile-row .cover h3 {
+  font-size: 15px;
+  text-shadow: 0 2px 8px #000;
+  background: #0009;
+  padding: 4px 6px;
+  border-radius: 5px;
+}
+.profile-row .list-item .cover {
+  width: 55px;
+  aspect-ratio: 2/3;
+}
+.profile-row > .profile-row-cell {
+  flex: 0 0 360px;
+  scroll-snap-align: start;
+}
+.profile-row > .profile-row-cell > .panel {
+  margin-bottom: 0;
+  height: 100%;
+}
+
 @media (max-width: 700px) {
   .netflix-section {
     padding: 0 12px;
+  }
+  .profile-row > article {
+    flex: 0 0 145px;
+  }
+  .profile-row > .list-item {
+    flex: 0 0 280px;
+  }
+  .profile-row > .profile-row-cell {
+    flex: 0 0 300px;
   }
 
   .netflix-card {
