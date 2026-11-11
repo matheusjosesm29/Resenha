@@ -288,7 +288,7 @@ function detail(id) {
     );
   const ownReview = session ? rs.find((r) => r.own) : null;
   $("#app").innerHTML =
-    `<a class="back" href="#/">← Voltar ao catálogo</a><section class="detail">${cover(w)}<div><div class="row"><span class="muted">${esc(w.category)} · ${w.year}</span></div><h1>${esc(w.title)}</h1><p>${esc(w.synopsis)}</p><p><b>${["Filmes", "Séries", "Quadrinhos"].includes(w.category) ? "Direção / criação" : "Autoria / desenvolvimento"}:</b> ${esc(w.creator)}</p>${w.cast ? `<p><b>Elenco:</b> ${esc(w.cast)}</p>` : ""}<div class="panel rating"><div><small>Nota média</small><div class="big-score">${num(avg(w))}</div><small>${num(total(w))} avaliações</small></div><div class="bars">${distribution(
+    `<a class="back" href="#/">← Voltar ao catálogo</a><section class="detail">${cover(w)}<div><div class="row"><span class="muted">${esc(w.category)} · ${w.year}</span></div><h1>${esc(w.title)}</h1><p>${esc(w.synopsis)}</p><p><b>${["Filmes", "Séries", "Quadrinhos"].includes(w.category) ? "Direção / criação" : "Autoria / desenvolvimento"}:</b> ${esc(w.creator)}</p>${["Filmes", "Séries"].includes(w.category) && w.cast ? `<p><b>Elenco:</b> ${esc(w.cast)}</p>` : ""}${w.tags ? `<p><b>Tags:</b> ${esc(w.tags)}</p>` : ""}<div class="panel rating"><div><small>Nota média</small><div class="big-score">${num(avg(w))}</div><small>${num(total(w))} avaliações</small></div><div class="bars">${distribution(
       w.id,
     )
       .map(
@@ -350,17 +350,31 @@ function profile(name) {
   }
   const pname = mine ? db.profile.name : decodeURIComponent(name),
     rs = db.reviews.filter((r) => (mine ? r.own : r.name === pname));
-  $("#app").innerHTML =
-    `<section class="profile-head"><div class="avatar" id="profile-avatar">${mine && db.profile.avatar ? `<img alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%" src="${esc(db.profile.avatar)}">` : esc(initials(pname))}</div><div class="profile-info"><h1>${esc(pname)}</h1><p class="muted">Comunidade Resenha</p><p>${esc(mine ? db.profile.bio : "")}</p><div class="row"><span><b>${rs.length}</b> resenhas</span><span><b>${rs.length ? num(rs.reduce((s, r) => s + r.score, 0) / rs.length) : "—"}</b> nota média dada</span><span><b>${rs.reduce((s, r) => s + r.likes, 0)}</b> curtidas recebidas</span></div></div>${mine ? '<button onclick="editProfile()">Editar perfil</button>' : ""}</section>${mine ? `<h2>Favoritos</h2><div class="grid">${cards(db.works.filter((w) => db.favorites.includes(w.id)))}</div><h2>Listas</h2><div class="chips">${statusNames.map((s) => `<button class="${s === listStatus ? "active" : ""}" onclick="listStatus='${s}';profile()">${s} ${Object.values(db.statuses).filter((x) => x === s).length}</button>`).join("")}</div><div class="grid">${cards(db.works.filter((w) => db.statuses[w.id] === listStatus))}</div>` : ""}<h2>Últimas resenhas</h2>${
-      rs
+  // Linha horizontal (sem limite e sem matriz): todos os itens em uma linha com rolagem.
+  const hrow = (ws) =>
+    `<div class="profile-row">${ws.length ? cards(ws) : '<p class="empty">Nenhuma obra aqui.</p>'}</div>`;
+  const favorites = db.works.filter((w) => db.favorites.includes(w.id));
+  const reviewsRow = rs.length
+    ? `<div class="profile-row">${rs
         .slice()
         .reverse()
         .map(
           (r) =>
             `<div class="panel list-item"><div style="--cover:${work(r.work)?.color}" class="cover"></div><div><a href="#/obra/${r.work}"><b>${esc(work(r.work)?.title || "Obra removida")}</b></a><p>${r.spoiler ? "Contém spoilers — abra a obra para ler." : esc(r.text)}</p><small>${r.likes} curtidas</small></div><span class="score">${num(r.score)}</span></div>`,
         )
-        .join("") || '<p class="empty">Nenhuma resenha publicada.</p>'
-    }`;
+        .join("")}</div>`
+    : '<p class="empty">Nenhuma resenha publicada.</p>';
+  // Listas: mantém o modo antigo com filtros por status (chips) e uma única lista filtrada.
+  const listsHtml = `<h2>Listas</h2><div class="chips">${statusNames
+    .map(
+      (s) =>
+        `<button class="${s === listStatus ? "active" : ""}" onclick="listStatus='${s}';profile()">${s} ${Object.values(db.statuses).filter((x) => x === s).length}</button>`,
+    )
+    .join("")}</div>${hrow(db.works.filter((w) => db.statuses[w.id] === listStatus))}`;
+  $("#app").innerHTML =
+    `<section class="profile-head"><div class="avatar" id="profile-avatar">${mine && db.profile.avatar ? `<img alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%" src="${esc(db.profile.avatar)}">` : esc(initials(pname))}</div><div class="profile-info"><h1>${esc(pname)}</h1><p class="muted">Comunidade Resenha</p><p>${esc(mine ? db.profile.bio : "")}</p><div class="row"><span><b>${rs.length}</b> resenhas</span><span><b>${rs.length ? num(rs.reduce((s, r) => s + r.score, 0) / rs.length) : "—"}</b> nota média dada</span><span><b>${rs.reduce((s, r) => s + r.likes, 0)}</b> curtidas recebidas</span></div></div>${mine ? '<button onclick="editProfile()">Editar perfil</button>' : ""}</section>${
+      mine ? `<h2>Favoritos</h2>${hrow(favorites)}${listsHtml}` : ""
+    }<h2>Últimas resenhas</h2>${reviewsRow}`;
 }
 function editProfile() {}
 function auth(mode) {}
@@ -375,6 +389,7 @@ function editWork(id) {
     synopsis: "",
     creator: "",
     cast: "",
+    tags: "",
     poster: "",
     color: "#3a4551",
   };
@@ -384,9 +399,17 @@ function editWork(id) {
       .map((c) => `<option ${c === w.category ? "selected" : ""}>${c}</option>`)
       .join(
         "",
-      )}</select></label><label>Ano<input name="year" type="number" min="1" max="2100" required value="${w.year}"></label><label>Autoria / direção<input name="creator" required maxlength="200" value="${esc(w.creator)}"></label><label>Sinopse<textarea name="synopsis" required maxlength="3000">${esc(w.synopsis)}</textarea></label><label>Elenco / tags <small>(opcional, separados por vírgula)</small><textarea name="cast" maxlength="2000" placeholder="Elenco, desenvolvedores ou tags">${esc(w.cast)}</textarea></label><label>URL da imagem da capa <small>(opcional)</small><input name="poster" type="url" maxlength="1000" placeholder="https://..." value="${esc(w.poster)}"></label><div class="poster-preview" id="poster-preview">${w.poster ? `<img src="${esc(w.poster)}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<small>Não foi possível carregar a imagem.</small>'">` : `<small>Prévia da capa aparece aqui.</small>`}</div><label>Cor da capa<input type="color" name="color" value="${esc(w.color)}"></label><button class="primary full">Salvar obra</button></form>`,
+      )}</select></label><label>Ano<input name="year" type="number" min="1" max="2100" required value="${w.year}"></label><label>Autoria / direção<input name="creator" required maxlength="200" value="${esc(w.creator)}"></label><label>Sinopse<textarea name="synopsis" required maxlength="3000">${esc(w.synopsis)}</textarea></label><label id="cast-field">Elenco <small>(opcional, separado por vírgula)</small><textarea name="cast" maxlength="2000" placeholder="Atores">${esc(w.cast)}</textarea></label><label>Tags <small>(opcional, separadas por vírgula)</small><textarea name="tags" maxlength="2000" placeholder="Ação, Aventura, Fantasia">${esc(w.tags)}</textarea></label><label>URL da imagem da capa <small>(opcional)</small><input name="poster" type="url" maxlength="1000" placeholder="https://..." value="${esc(w.poster)}"></label><div class="poster-preview" id="poster-preview">${w.poster ? `<img src="${esc(w.poster)}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<small>Não foi possível carregar a imagem.</small>'">` : `<small>Prévia da capa aparece aqui.</small>`}</div><label>Cor da capa<input type="color" name="color" value="${esc(w.color)}"></label><button class="primary full">Salvar obra</button></form>`,
   );
-  const posterInput = $("#work-form").elements.namedItem("poster");
+  const form = $("#work-form");
+  // Elenco só existe para Filmes e Séries; Jogos, Livros e Quadrinhos usam apenas Tags.
+  const toggleCast = () => {
+    const show = ["Filmes", "Séries"].includes(form.elements.namedItem("category").value);
+    $("#cast-field").hidden = !show;
+  };
+  form.elements.namedItem("category").onchange = toggleCast;
+  toggleCast();
+  const posterInput = form.elements.namedItem("poster");
   posterInput.oninput = () => {
     const url = posterInput.value.trim();
     $("#poster-preview").innerHTML = url

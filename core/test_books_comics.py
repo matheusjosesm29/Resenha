@@ -194,7 +194,8 @@ class BooksAndComicsTests(TestCase):
         self.assertEqual((work.title, work.year, work.category), ('Watchmen', 1986, 'Quadrinhos'))
         self.assertEqual(work.synopsis, 'Who watches the Watchmen? & more.')
         self.assertEqual(work.creator, 'Alan Moore, Dave Gibbons, Letterer')
-        self.assertEqual(work.cast, 'Rorschach, Ozymandias')
+        self.assertEqual(work.cast, '')
+        self.assertEqual(work.tags, 'Rorschach, Ozymandias')
         self.assertTrue(work.poster.endswith('watchmen.jpg'))
         search, detail = get.call_args_list
         self.assertEqual(search.args[0], 'https://comicvine.gamespot.com/api/search/')

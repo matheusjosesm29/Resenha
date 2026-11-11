@@ -267,14 +267,16 @@ profile = function (id) {
     const p = await apiCall("profiles/" + id);
     if (location.hash !== "#/usuario/" + id) return;
     const rs = db.reviews.filter((r) => r.userId === p.id);
-    $("#app").innerHTML =
-      `<section class="profile-head"><div class="avatar">${p.avatar ? `<img alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%" src="${esc(p.avatar)}">` : esc(initials(p.name))}</div><div class="profile-info"><h1>${esc(p.name)}</h1><p>${esc(p.bio)}</p><span>${rs.length} resenhas · ${rs.reduce((n, r) => n + r.likes, 0)} curtidas recebidas</span></div></section><h2>Favoritos</h2><div class="grid">${cards(db.works.filter((w) => p.favorites.includes(w.id)))}</div><h2>Últimas resenhas</h2>${
-        rs
+    const favorites = db.works.filter((w) => p.favorites.includes(w.id));
+    const reviewsRow = rs.length
+      ? `<div class="profile-row">${rs
           .slice()
           .reverse()
-          .map((r) => review(r, true))
-          .join("") || '<p class="empty">Nenhuma resenha publicada.</p>'
-      }`;
+          .map((r) => `<div class="profile-row-cell">${review(r, true)}</div>`)
+          .join("")}</div>`
+      : '<p class="empty">Nenhuma resenha publicada.</p>';
+    $("#app").innerHTML =
+      `<section class="profile-head"><div class="avatar">${p.avatar ? `<img alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%" src="${esc(p.avatar)}">` : esc(initials(p.name))}</div><div class="profile-info"><h1>${esc(p.name)}</h1><p>${esc(p.bio)}</p><span>${rs.length} resenhas · ${rs.reduce((n, r) => n + r.likes, 0)} curtidas recebidas</span></div></section><h2>Favoritos</h2><div class="profile-row">${favorites.length ? cards(favorites) : '<p class="empty">Nenhuma obra aqui.</p>'}</div><h2>Últimas resenhas</h2>${reviewsRow}`;
   });
 };
 
@@ -390,13 +392,17 @@ editWork = function (id) {
   $("#work-form").onsubmit = (e) => {
     e.preventDefault();
     const f = e.target,
+      category = f.category.value,
+      // Elenco só se aplica a Filmes e Séries.
+      hasCast = ["Filmes", "Séries"].includes(category),
       payload = {
         title: f.elements.namedItem("title").value,
-        category: f.category.value,
+        category,
         year: Number(f.year.value),
         creator: f.creator.value,
         synopsis: f.synopsis.value,
-        cast: f.elements.namedItem("cast").value,
+        cast: hasCast ? f.elements.namedItem("cast").value : "",
+        tags: f.elements.namedItem("tags").value,
         poster: f.elements.namedItem("poster").value.trim(),
         color: f.color.value,
       };

@@ -53,7 +53,7 @@ def profile_data(user):
 
 def serialize_work(w):
     return {'id': w.pk, 'title': w.title, 'category': w.category, 'year': w.year,
-            'synopsis': w.synopsis, 'creator': w.creator, 'cast': w.cast, 'poster': w.poster,
+            'synopsis': w.synopsis, 'creator': w.creator, 'cast': w.cast, 'tags': w.tags, 'poster': w.poster,
             'color': w.color, 'score': float(w.average or 0), 'count': w.review_count,
             'imdb_id': w.imdb_id, 'rawg_id': w.rawg_id, 'ol_id': w.ol_id, 'isbn': w.isbn,
             'google_books_id': w.google_books_id, 'comicvine_id': w.comicvine_id}
@@ -216,11 +216,14 @@ def authenticated(request):
 
 def change_work(data, instance=None):
     instance = instance or Work()
-    for field, limit in [('title', 150), ('synopsis', 3000), ('creator', 200), ('cast', 2000)]:
-        setattr(instance, field, text(data, field, limit, required=field in ['title', 'synopsis']))
     instance.category = text(data, 'category', 20)
     if instance.category not in dict(Work.CATEGORIES):
         raise ValidationError('Categoria inválida.')
+    for field, limit in [('title', 150), ('synopsis', 3000), ('creator', 200), ('cast', 2000), ('tags', 2000)]:
+        setattr(instance, field, text(data, field, limit, required=field in ['title', 'synopsis']))
+    # Elenco só se aplica a Filmes e Séries; demais categorias usam apenas tags.
+    if instance.category not in ['Filmes', 'Séries']:
+        instance.cast = ''
     year = data.get('year')
     if isinstance(year, bool) or not isinstance(year, int) or not 1 <= year <= 2100:
         raise ValidationError('Ano inválido.')

@@ -77,7 +77,8 @@ def lookup_omdb(title='', imdb_id=''):
     return {
         'title': value('Title', 150), 'category': 'Séries' if data['Type'] == 'series' else 'Filmes',
         'year': year, 'synopsis': value('Plot', 3000), 'creator': value('Director', 200) or value('Writer', 200),
-        'cast': value('Actors', 2000), 'poster': value('Poster', 1000),
+
+        'cast': value('Actors', 2000), 'tags': '', 'poster': value('Poster', 1000),
         'imdb_id': value('imdbID', 20),
     }
 
@@ -156,7 +157,8 @@ def lookup_rawg(title='', rawg_id=''):
         'year': year,
         'synopsis': synopsis[:3000],
         'creator': ', '.join(developer_names)[:200] or 'Desenvolvedor não informado',
-        'cast': ', '.join(tag_names[:5])[:2000],
+        'cast': '',
+        'tags': ', '.join(tag_names[:5])[:2000],
         'poster': value('background_image', '')[:1000],
         'rawg_id': game_id[:50],
     }
@@ -338,6 +340,7 @@ def lookup_open_library(title='', isbn='', ol_id=''):
         'synopsis': clip(synopsis, 3000),
         'creator': clip(', '.join(authors[:3]), 200) or 'Autoria não informada',
         'cast': '',
+        'tags': '',
         'poster': f'https://covers.openlibrary.org/b/id/{int(cover_id)}-L.jpg' if str(cover_id or '').isdigit() else '',
         'ol_id': work_id[:50],
         'isbn': isbn_value[:20] or None,
@@ -391,6 +394,7 @@ def lookup_google_books(title='', isbn=''):
         'synopsis': clip(synopsis, 3000),
         'creator': clip(', '.join(authors[:3]), 200) or 'Autoria não informada',
         'cast': '',
+        'tags': '',
         'poster': poster[:1000],
         'google_books_id': str(item['id'])[:20],
         'isbn': (isbn or identifiers.get('ISBN_13') or identifiers.get('ISBN_10') or '')[:20] or None,
@@ -429,6 +433,43 @@ def comicvine_get(path, params):
     return data.get('results')
 
 
+def _normalize_comicvine_volume(volume):
+    """Converte um volume bruto do Comic Vine no dicionário do catálogo.
+
+    Funciona tanto para a resposta de detalhe (volume/4050-<id>) quanto para os
+    itens da listagem de volumes. Levanta ValidationError quando faltam dados
+    mínimos (ano ou sinopse) que impeçam cadastrar a obra.
+    """
+    if not isinstance(volume, dict) or not volume.get('id'):
+        raise ValidationError('Quadrinho não encontrado no Comic Vine.')
+
+    year = parse_year(volume.get('start_year'))
+    if not year:
+        raise ValidationError('O Comic Vine não retornou um ano de início válido.')
+    synopsis = html_to_text(volume.get('description')) or tidy(unescape(strip_tags(volume.get('deck') or '')))
+    if not synopsis:
+        raise ValidationError('O Comic Vine não tem sinopse para este quadrinho. Cadastre a obra manualmente.')
+
+    publisher = volume.get('publisher') if isinstance(volume.get('publisher'), dict) else {}
+    creators = names(volume.get('person_credits'), 3, sort_by_count=True)
+    image = volume.get('image') if isinstance(volume.get('image'), dict) else {}
+    poster = image.get('medium_url') or image.get('original_url') or ''
+    if not isinstance(poster, str) or poster.endswith('blank.png'):  # imagem padrão do Comic Vine
+        poster = ''
+
+    return {
+        'title': clip(volume.get('name') or '', 150),
+        'category': 'Quadrinhos',
+        'year': year,
+        'synopsis': clip(synopsis, 3000),
+        'creator': clip(', '.join(creators), 200) or (publisher.get('name') or 'Autoria não informada')[:200],
+        'cast': '',
+        'tags': clip(', '.join(names(volume.get('character_credits'), 5, sort_by_count=True)), 2000),
+        'poster': poster[:1000],
+        'comicvine_id': str(volume['id'])[:20],
+    }
+
+
 def lookup_comicvine(title='', comicvine_id=''):
     """Busca uma série/encadernado (volume) no Comic Vine e normaliza para o catálogo."""
     if not settings.COMICVINE_API_KEY:
@@ -464,30 +505,10 @@ def lookup_comicvine(title='', comicvine_id=''):
     volume = comicvine_get(f'volume/4050-{volume_id}', {
         'field_list': 'id,name,start_year,deck,description,publisher,image,person_credits,character_credits',
     })
-    if not isinstance(volume, dict) or not volume.get('id'):
-        raise ValidationError('Quadrinho não encontrado no Comic Vine.')
+    return _normalize_comicvine_volume(volume)
 
-    year = parse_year(volume.get('start_year'))
-    if not year:
-        raise ValidationError('O Comic Vine não retornou um ano de início válido.')
-    synopsis = html_to_text(volume.get('description')) or tidy(unescape(strip_tags(volume.get('deck') or '')))
-    if not synopsis:
-        raise ValidationError('O Comic Vine não tem sinopse para este quadrinho. Cadastre a obra manualmente.')
 
-    publisher = volume.get('publisher') if isinstance(volume.get('publisher'), dict) else {}
-    creators = names(volume.get('person_credits'), 3, sort_by_count=True)
-    image = volume.get('image') if isinstance(volume.get('image'), dict) else {}
-    poster = image.get('medium_url') or image.get('original_url') or ''
-    if not isinstance(poster, str) or poster.endswith('blank.png'):  # imagem padrão do Comic Vine
-        poster = ''
-
-    return {
-        'title': clip(volume.get('name') or '', 150),
-        'category': 'Quadrinhos',
-        'year': year,
-        'synopsis': clip(synopsis, 3000),
-        'creator': clip(', '.join(creators), 200) or (publisher.get('name') or 'Autoria não informada')[:200],
-        'cast': clip(', '.join(names(volume.get('character_credits'), 5, sort_by_count=True)), 2000),
-        'poster': poster[:1000],
-        'comicvine_id': str(volume['id'])[:20],
-    }
+# Campos pedidos ao Comic Vine ao listar volumes em lote (importação em massa).
+COMICVINE_VOLUME_FIELDS = (
+    'id,name,start_year,deck,description,publisher,image,person_credits,character_credits'
+)

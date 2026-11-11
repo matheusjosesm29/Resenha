@@ -215,7 +215,8 @@ class ApiTests(TestCase):
         self.assertEqual(game.year, 2013)
         self.assertEqual(game.synopsis, 'A detailed game description.')
         self.assertEqual(game.creator, 'Rockstar North')
-        self.assertEqual(game.cast, 'Open World, Action')
+        self.assertEqual(game.cast, '')
+        self.assertEqual(game.tags, 'Open World, Action')
         self.assertEqual(game.poster, 'https://example.org/game.jpg')
 
         catalog = self.client.get('/api/state').json()['works']
